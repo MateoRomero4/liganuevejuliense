@@ -214,18 +214,18 @@ const supabase = createClient()
 
     try {
       for (const item of toUpdate) {
-        const { error } = await supabase.from('predictions').update(item as any).eq('id', item.id)
+        const { error } = await supabase.from('predictions').update(item).eq('id', item.id as number)
         if (error) throw error
       }
 
       if (toInsert.length > 0) {
-const { data, error } = await supabase.from('predictions').insert(toInsert as any).select()
+        const { data, error } = await supabase.from('predictions').insert(toInsert).select()
         if (error) throw error
         
         if (data) {
           setPredictions(prev => {
             const newState = { ...prev }
-            data.forEach(p => {
+            data.forEach((p: any) => {
               if (p.match_id) {
                 newState[p.match_id].id = p.id
               }
