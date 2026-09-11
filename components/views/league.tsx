@@ -256,8 +256,17 @@ const teamsData = (teamsResponse.data as Team[]) || [];
   if (loading || !finalTie || !thirdFourthTie) {
     return (
       <div className={`w-full min-h-screen flex items-center justify-center transition-opacity duration-500 ease-in-out ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}>
-        <video ref={videoRef} src="/assets/loader.webm" autoPlay loop muted playsInline className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-100 md:-mt-50" />
-      </div>
+<video 
+  ref={videoRef}
+  autoPlay 
+  loop 
+  muted 
+  playsInline
+  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+>
+  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader.webm" type="video/webm" />
+</video>      </div>
     )
   }
 

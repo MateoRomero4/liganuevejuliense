@@ -244,12 +244,9 @@ if (formData.id) {
   loop 
   muted 
   playsInline
-  className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
 >
-  {/* Para iPhones / Safari (soporta HEVC con transparencia) */}
   <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  
-  {/* Para PC y Android */}
   <source src="/assets/loader.webm" type="video/webm" />
 </video>
       </div>
