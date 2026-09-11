@@ -42,7 +42,7 @@ export default function Navbar() {
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         setIsLoggedIn(true);
-        const { data: profile } = await supabase
+const { data: profile }: any = await supabase
           .from('profiles')
           .select('is_admin')
           .eq('id', session.user.id)

@@ -1,8 +1,7 @@
 "use client";
-
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Suspense } from "react";
 import Image from "next/image";
 
 
@@ -16,7 +15,7 @@ function ViewManager() {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "home";
 
-  const components: Record<string, JSX.Element> = {
+  const components: Record<string, React.ReactNode> = {
     home: <HomeView />,
     league: <LeagueView />,
     fixture: <FixtureView />,

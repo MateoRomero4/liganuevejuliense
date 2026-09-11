@@ -138,35 +138,38 @@ const teamsData = (teamsResponse.data as Team[]) || []
             }
           })
 
-          if (standingMatchesData) {
+if (standingMatchesData) {
             standingMatchesData.forEach(m => {
-              if (m.home_goals !== null && m.away_goals !== null) {
-                if (stats[m.home_team_id] && stats[m.away_team_id]) {
+              if (m.home_goals !== null && m.away_goals !== null && m.home_team_id !== null && m.away_team_id !== null) {
+                const hid = m.home_team_id
+                const aid = m.away_team_id
+
+                if (stats[hid] && stats[aid]) {
                   const hg = m.home_goals
                   const ag = m.away_goals
 
-                  stats[m.home_team_id].pj++
-                  stats[m.away_team_id].pj++
+                  stats[hid].pj++
+                  stats[aid].pj++
 
-                  stats[m.home_team_id].gf += hg
-                  stats[m.home_team_id].gc += ag
+                  stats[hid].gf += hg
+                  stats[hid].gc += ag
 
-                  stats[m.away_team_id].gf += ag
-                  stats[m.away_team_id].gc += hg
+                  stats[aid].gf += ag
+                  stats[aid].gc += hg
 
                   if (hg > ag) {
-                    stats[m.home_team_id].pg++
-                    stats[m.home_team_id].pts += 3
-                    stats[m.away_team_id].pp++
+                    stats[hid].pg++
+                    stats[hid].pts += 3
+                    stats[aid].pp++
                   } else if (hg < ag) {
-                    stats[m.away_team_id].pg++
-                    stats[m.away_team_id].pts += 3
-                    stats[m.home_team_id].pp++
+                    stats[aid].pg++
+                    stats[aid].pts += 3
+                    stats[hid].pp++
                   } else {
-                    stats[m.home_team_id].pe++
-                    stats[m.away_team_id].pe++
-                    stats[m.home_team_id].pts += 1
-                    stats[m.away_team_id].pts += 1
+                    stats[hid].pe++
+                    stats[aid].pe++
+                    stats[hid].pts += 1
+                    stats[aid].pts += 1
                   }
                 }
               }

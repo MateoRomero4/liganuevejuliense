@@ -28,7 +28,7 @@ export default function AdministrateView() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState<Partial<Match> | any>({})
+  const [formData, setFormData] = useState<any>({})
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 

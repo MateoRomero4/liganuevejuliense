@@ -137,15 +137,17 @@ export default function MiProdeView() {
         if (predsError) throw predsError
 
         const predsMap: Record<number, PredictionState> = {}
-        predsData.forEach(p => {
-          if (p.match_id) {
-            predsMap[p.match_id] = {
-              id: p.id,
-              home_goals: p.home_goals.toString(),
-              away_goals: p.away_goals.toString()
+        if (predsData) {
+          predsData.forEach(p => {
+            if (p.match_id) {
+              predsMap[p.match_id] = {
+                id: p.id,
+                home_goals: p.home_goals.toString(),
+                away_goals: p.away_goals.toString()
+              }
             }
-          }
-        })
+          })
+        }
         setPredictions(predsMap)
 
       } catch (err: any) {
@@ -211,12 +213,12 @@ export default function MiProdeView() {
 
     try {
       for (const item of toUpdate) {
-        const { error } = await supabase.from('predictions').update(item).eq('id', item.id)
+        const { error } = await supabase.from('predictions').update(item as any).eq('id', item.id)
         if (error) throw error
       }
 
       if (toInsert.length > 0) {
-        const { data, error } = await supabase.from('predictions').insert(toInsert).select()
+const { data, error } = await supabase.from('predictions').insert(toInsert as any).select()
         if (error) throw error
         
         if (data) {
