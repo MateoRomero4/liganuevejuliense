@@ -70,10 +70,10 @@ export default function LeagueView() {
           minimumLoadTimePromise
         ]);
 
-        const teamsData = teamsResponse.data;
-        const matchesData = matchesResponse.data as MatchWithTeams[];
+const teamsData = (teamsResponse.data as Team[]) || []; 
+        const matchesData = (matchesResponse.data as MatchWithTeams[]) || [];
 
-        if (teamsData && matchesData) {
+        if (teamsData.length > 0 && matchesData.length > 0) {
           const stats: Record<string, TeamStanding> = {}
           teamsData.forEach(t => {
             stats[t.id] = { ...t, pj: 0, pg: 0, pe: 0, pp: 0, pts: 0, gf: 0, gc: 0 }

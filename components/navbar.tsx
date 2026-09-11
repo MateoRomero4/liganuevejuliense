@@ -28,7 +28,7 @@ export default function Navbar() {
           .from('profiles')
           .select('is_admin')
           .eq('id', session.user.id)
-          .single();
+          .single() as { data: { is_admin: boolean } | null };
           
         setIsAdmin(!!profile?.is_admin);
       } else {
@@ -68,14 +68,14 @@ export default function Navbar() {
     router.refresh();
   };
 
-  const isTabActive = (tabName) => {
+  const isTabActive = (tabName: string) => {
     if (tabName === 'home') return pathname === '/' && (!activeTab || activeTab === 'home');
     if (tabName === 'administrate') return pathname === '/administrate';
     if (tabName === 'login') return pathname === '/login';
     return pathname === '/' && activeTab === tabName;
   };
 
-  const getIconClass = (tabName) => {
+  const getIconClass = (tabName: string) => {
     return `md:hidden transition-all duration-200 ${
       isTabActive(tabName) 
         ? 'text-sky-400 scale-110 drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]' 

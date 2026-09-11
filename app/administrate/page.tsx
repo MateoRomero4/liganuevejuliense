@@ -28,7 +28,7 @@ export default function AdministrateView() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState<Partial<Match>>({})
+  const [formData, setFormData] = useState<Partial<Match> | any>({})
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
@@ -42,7 +42,7 @@ export default function AdministrateView() {
           .from('profiles')
           .select('is_admin')
           .eq('id', authData.user.id)
-          .single()
+          .single() as { data: { is_admin: boolean } | null };
         
         if (profile && profile.is_admin) {
           setIsAdmin(true)

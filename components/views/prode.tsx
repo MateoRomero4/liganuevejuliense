@@ -44,9 +44,9 @@ export default function ProdeView() {
           minimumLoadTimePromise
         ]);
 
-        const profilesData = profilesRes.data || [];
-        const matchesData = matchesRes.data || [];
-        const predictionsData = predictionsRes.data || [];
+const profilesData = (profilesRes.data as Profile[]) || []; 
+        const matchesData = (matchesRes.data as Match[]) || [];
+        const predictionsData = (predictionsRes.data as Prediction[]) || []; 
 
         const stats: Record<string, UserStanding> = {}
         profilesData.forEach(p => {

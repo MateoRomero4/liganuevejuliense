@@ -132,7 +132,7 @@ export default function MiProdeView() {
         const { data: predsData, error: predsError } = await supabase
           .from('predictions')
           .select('*')
-          .eq('profile_id', currentUser)
+          .eq('profile_id', currentUser) as { data: Prediction[] | null, error: any };
 
         if (predsError) throw predsError
 
@@ -286,7 +286,7 @@ export default function MiProdeView() {
   const uniqueTeams = Array.from(
     new Map(
       matches.flatMap(m => {
-        const teams = []
+        const teams: [number, Team][] = []
         if (m.home_team) teams.push([m.home_team.id, m.home_team])
         if (m.away_team) teams.push([m.away_team.id, m.away_team])
         return teams

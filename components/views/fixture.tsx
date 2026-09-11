@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/types/database.types'
 
+type Team = Database['public']['Tables']['teams']['Row'];
+
 type MatchWithTeams = Database['public']['Tables']['matches']['Row'] & {
   home_team: Database['public']['Tables']['teams']['Row'] | null;
   away_team: Database['public']['Tables']['teams']['Row'] | null;
@@ -72,16 +74,16 @@ export default function FixtureView() {
     loadFixture()
   }, [])
 
-  const uniqueTeams = Array.from(
+const uniqueTeams = Array.from(
     new Map(
       matches.flatMap(m => {
-        const teams = []
+        const teams: [number, Team][] = []
         if (m.home_team) teams.push([m.home_team.id, m.home_team])
         if (m.away_team) teams.push([m.away_team.id, m.away_team])
         return teams
       })
     ).values()
-  ).sort((a, b) => (a.short_name || a.name).localeCompare(b.short_name || b.name))
+  ).sort((a: Team, b: Team) => (a.short_name || a.name).localeCompare(b.short_name || b.name))
   const selectedTeam = uniqueTeams.find(team => team.id === selectedTeamId);
   const matchesToShow = selectedTeamId 
     ? matches.filter(m => m.home_team?.id === selectedTeamId || m.away_team?.id === selectedTeamId)
@@ -111,7 +113,7 @@ export default function FixtureView() {
     if (currentIndex < availableFases.length - 1) setCurrentFase(availableFases[currentIndex + 1])
   }
 
-const videoRef = useRef(null);
+const videoRef = useRef<HTMLVideoElement | null>(null); 
 
 useEffect(() => {
   if (videoRef.current) {

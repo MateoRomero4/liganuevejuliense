@@ -117,10 +117,10 @@ export default function HomeView() {
           }
         }
 
-        const teamsData = teamsResponse.data || []
-        setTeams(teamsData as Team[])
+const teamsData = (teamsResponse.data as Team[]) || []
+        setTeams(teamsData)
 
-        const standingMatchesData = matchesResponse.data
+        const standingMatchesData = (matchesResponse.data as Match[]) || []
 
         if (teamsData) {
           const stats: Record<string, TeamStanding> = {}
@@ -249,9 +249,9 @@ export default function HomeView() {
         if (matchesRes.error) throw matchesRes.error
         if (predictionsRes.error) throw predictionsRes.error
 
-        const profilesData = profilesRes.data || []
-        const matchesData = matchesRes.data || []
-        const predictionsData = predictionsRes.data || []
+const profilesData = (profilesRes.data as Profile[]) || [] 
+        const matchesData = (matchesRes.data as Match[]) || [] 
+        const predictionsData = (predictionsRes.data as Prediction[]) || [] 
 
         const stats: Record<string, UserStanding> = {}
 
