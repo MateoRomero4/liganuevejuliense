@@ -238,18 +238,16 @@ if (formData.id) {
           isFadingOut ? 'opacity-0' : 'opacity-100'
         }`}
       >
-<video 
-  ref={videoRef}
-  autoPlay 
-  loop 
-  muted 
-  playsInline
-  className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
->
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  
-  <source src="/assets/loader.webm" type="video/webm" />
-</video>
+        <video 
+          ref={videoRef}
+          src="/assets/loader.webm" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20            -mt-50
+              md:-mt-50" 
+        />
       </div>
     )
   }
