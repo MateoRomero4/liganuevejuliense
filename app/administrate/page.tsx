@@ -238,16 +238,16 @@ if (formData.id) {
           isFadingOut ? 'opacity-0' : 'opacity-100'
         }`}
       >
-        <video 
-          ref={videoRef}
-          src="/assets/loader.webm" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20            -mt-50
-              md:-mt-50" 
-        />
+<video 
+  ref={videoRef}
+  src="/assets/loader.webm" 
+  autoPlay 
+  loop 
+  muted 
+  playsInline
+  style={{ mixBlendMode: 'multiply' }}
+  className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-12 md:-mt-12 bg-transparent" 
+/>
       </div>
     )
   }
