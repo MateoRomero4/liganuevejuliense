@@ -270,7 +270,7 @@ try {
           loop 
           muted 
           playsInline
-          className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20            -mt-100
+          className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20            -mt-50
               md:-mt-50" 
         />
       </div>

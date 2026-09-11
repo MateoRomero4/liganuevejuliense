@@ -5,6 +5,8 @@ import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/types/database.types'
 import Link from 'next/link'
 
+import Image from "next/image";
+
 type Team = Database['public']['Tables']['teams']['Row']
 type Match = Database['public']['Tables']['matches']['Row']
 type Profile = Database['public']['Tables']['profiles']['Row']
@@ -236,16 +238,18 @@ if (formData.id) {
           isFadingOut ? 'opacity-0' : 'opacity-100'
         }`}
       >
-        <video 
-          ref={videoRef}
-          src="/assets/loader.webm" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20            -mt-100
-              md:-mt-50" 
-        />
+<video 
+  ref={videoRef}
+  autoPlay 
+  loop 
+  muted 
+  playsInline
+  className="w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+>
+  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
+  
+  <source src="/assets/loader.webm" type="video/webm" />
+</video>
       </div>
     )
   }
@@ -268,6 +272,7 @@ if (formData.id) {
 
   return (
     <div className="relative w-full min-h-screen pb-20">
+      
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(20px); }
@@ -280,9 +285,10 @@ if (formData.id) {
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
       `}</style>
+      
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 py-8">
-        
+
         <div className="animate-fade-up mb-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ animationDelay: '100ms' }}>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight text-[#1E1E1E]">
             Administración
@@ -476,7 +482,7 @@ if (formData.id) {
 
                 </div>
               </div>
-
+{/**
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 border border-gray-200">
                 <div className="md:col-span-4 border-b border-gray-200 pb-2 mb-2">
                   <h3 className="text-xs font-black uppercase text-[#011A38]">Configuración de Playoffs</h3>
@@ -498,7 +504,7 @@ if (formData.id) {
                   <input type="number" placeholder="Ej: 101" value={formData.aggregate_tie_id || ''} onChange={e => setFormData({...formData, aggregate_tie_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
                 </div>
               </div>
-
+ */}
               <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t-2 border-gray-200">
                 <div className="w-full md:w-1/3">
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Estado del Partido</label>
