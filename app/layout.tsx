@@ -3,7 +3,7 @@ import { Alata } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer"; 
-
+import { Suspense } from 'react'
 const alata = Alata({ 
   weight: "400",
   subsets: ["latin"],
@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${alata.className} min-h-screen flex flex-col`}>
-        <Navbar />
+        <Suspense fallback={null}>
+  <Navbar />
+</Suspense>
         
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
