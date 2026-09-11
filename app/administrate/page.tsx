@@ -193,11 +193,11 @@ const handleOpenModal = (match?: MatchWithTeams) => {
         aggregate_tie_id: formData.aggregate_tie_id || null
       }
 
-      if (formData.id) {
-        const { error } = await supabase.from('matches').update(payload).eq('id', formData.id)
+if (formData.id) {
+        const { error } = await supabase.from('matches').update(payload as any).eq('id', formData.id)
         if (error) throw error
       } else {
-        const { error } = await supabase.from('matches').insert([payload])
+        const { error } = await supabase.from('matches').insert([payload as any])
         if (error) throw error
       }
 
