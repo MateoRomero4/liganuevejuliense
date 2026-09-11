@@ -189,9 +189,10 @@ export default function MiProdeView() {
     setError(null)
     setSuccessMsg(null)
 
-    const supabase = createClient()
-    const toInsert: any[] = []
-    const toUpdate: any[] = []
+const supabase = createClient()
+    
+    const toInsert: Database['public']['Tables']['predictions']['Insert'][] = []
+    const toUpdate: Database['public']['Tables']['predictions']['Update'][] = []
 
     Object.entries(predictions).forEach(([matchIdStr, pred]) => {
       const matchId = parseInt(matchIdStr)

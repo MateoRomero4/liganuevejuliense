@@ -28,7 +28,7 @@ export default function AdministrateView() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState<any>({})
+  const [formData, setFormData] = useState<Record<string, any>>({})
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
@@ -142,7 +142,7 @@ export default function AdministrateView() {
     }
   }, [loading])
 
-  const handleOpenModal = (match?: MatchWithTeams) => {
+const handleOpenModal = (match?: MatchWithTeams) => {
     if (match) {
       setFormData({
         id: match.id,
@@ -158,7 +158,7 @@ export default function AdministrateView() {
         round_name: match.round_name,
         leg: match.leg,
         aggregate_tie_id: match.aggregate_tie_id
-      } as any)
+      })
     } else {
       setFormData({
         fase: typeof currentInstance === 'number'
