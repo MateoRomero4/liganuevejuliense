@@ -134,10 +134,10 @@ if (loading) {
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
     </div>
   )
@@ -177,7 +177,7 @@ if (loading) {
             className="animate-fade-up flex flex-col items-center justify-center"
             style={{ animationDelay: '100ms' }}
           >
-<h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] mb-10 tracking-tight">
+<h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] mb-10 tracking-tight">
   {selectedTeamId ? `Partidos de ${selectedTeam?.short_name}` : 'Fase Regular'}
 </h2>
           </div>
@@ -187,19 +187,19 @@ if (loading) {
               <button 
                 onClick={handlePrevFase}
                 disabled={currentFase === availableFases[0]}
-                className="px-6 py-3  text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+                className="px-6 py-3  text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
               >
                 Anterior
               </button>
               
-              <span className="font-black text-2xl text-[#1E1E1E] min-w-[120px] text-center border-b-2 border-[#1E1E1E]">
+              <span className="font-black text-2xl text-[#1e1e1e] min-w-[120px] text-center border-b-2 border-[#1e1e1e]">
                 Fecha {currentFase}
               </span>
               
               <button 
                 onClick={handleNextFase}
                 disabled={currentFase === availableFases[availableFases.length - 1]}
-                className="px-6 py-3  text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+                className="px-6 py-3  text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
               >
                 Siguiente
               </button>
@@ -279,7 +279,7 @@ function MatchCard({ match, delay, isActive, showFase }: { match: MatchWithTeams
       <div 
         className={`absolute inset-0 z-0 overflow-hidden transition-transform duration-1000 ease-in-out ${isActive ? 'origin-top scale-y-100' : 'origin-bottom scale-y-0'}`}
       >
-        <div className="absolute inset-0 bg-linear-to-l from-[#070128] to-[#011A38]" />
+        <div className="absolute inset-0 bg-linear-to-l from-[#2980FF] to-[#043AB7]" />
       </div>
 
       <div className={`absolute left-0 top-0 bottom-0 w-2 flex flex-col z-30 transition-transform duration-700 ease-in-out ${isActive ? 'translate-x-0' : '-translate-x-full opacity-0'}`}>
@@ -334,7 +334,7 @@ function MatchCard({ match, delay, isActive, showFase }: { match: MatchWithTeams
             </span>
           </div>
         ) : (
-          <div className={`text-2xl md:text-3xl font-black tracking-widest transition-colors duration-1000 ${isActive ? 'text-white' : 'text-[#1E1E1E]'} ${showFase ? 'mt-3' : ''}`}>
+          <div className={`text-2xl md:text-3xl font-black tracking-widest transition-colors duration-1000 ${isActive ? 'text-white' : 'text-[#1e1e1e]'} ${showFase ? 'mt-3' : ''}`}>
             {match.home_goals} <span className={`font-light mx-1 ${isActive ? 'text-gray-400' : 'text-gray-400'}`}>-</span> {match.away_goals}
           </div>
         )}

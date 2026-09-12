@@ -244,10 +244,10 @@ if (formData.id) {
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
       </div>
     )
@@ -258,7 +258,7 @@ if (formData.id) {
       <div className="w-full min-h-screen flex flex-col items-center justify-center p-4">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Acceso Denegado</h2>
         <p className="mb-4">No tenés permisos de administrador para ver esta página.</p>
-        <Link href="/" className="bg-[#011A38] text-white px-6 py-2 font-bold uppercase">Volver al inicio</Link>
+        <Link href="/" className="bg-[#043AB7] text-white px-6 py-2 font-bold uppercase">Volver al inicio</Link>
       </div>
     )
   }
@@ -289,12 +289,12 @@ if (formData.id) {
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 py-8">
 
         <div className="animate-fade-up mb-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ animationDelay: '100ms' }}>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-[#1E1E1E]">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-[#1e1e1e]">
             Administración
           </h1>
           <button 
             onClick={() => handleOpenModal()} 
-            className="bg-linear-to-l from-[#070128] to-[#011A38] border border-[#ffffff] backdrop-blur-sm text-white px-4 py-2 font-medium uppercase tracking-wider transition-colors w-full md:w-auto"
+            className="bg-linear-to-l from-[#2980FF] to-[#043AB7] border border-[#ffffff] backdrop-blur-sm text-white px-4 py-2 font-medium uppercase tracking-wider transition-colors w-full md:w-auto"
           >
             Cargar Partido
           </button>
@@ -310,12 +310,12 @@ if (formData.id) {
               availableInstances.length === 0 ||
               currentInstance === availableInstances[0]
             }
-            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
           >
             Anterior
           </button>
 
-          <span className="font-black text-lg md:text-2xl text-[#1E1E1E] min-w-[120px] text-center border-b-2 border-[#1E1E1E] pb-1 uppercase tracking-wider">
+          <span className="font-black text-lg md:text-2xl text-[#1e1e1e] min-w-[120px] text-center border-b-2 border-[#1e1e1e] pb-1 uppercase tracking-wider">
             {typeof currentInstance === 'number'
               ? `Fecha ${currentInstance}`
               : currentInstance}
@@ -327,7 +327,7 @@ if (formData.id) {
               availableInstances.length === 0 ||
               currentInstance === availableInstances[availableInstances.length - 1]
             }
-            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
           >
             Siguiente
           </button>
@@ -337,7 +337,7 @@ if (formData.id) {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse whitespace-nowrap min-w-[700px]">
               <thead>
-                <tr className="bg-linear-to-l from-[#070128] to-[#011A38] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
+                <tr className="bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
                   <th className="p-3 md:p-4 border-b border-white">ID</th>
                   <th className="p-3 md:p-4 border-b border-white">Fecha y Hora</th>
                   <th className="p-3 md:p-4 border-b border-white">Partido</th>
@@ -373,7 +373,7 @@ if (formData.id) {
                             <span className="w-12 h-12 flex items-center justify-center font-bold text-gray-400 text-sm">N/A</span>
                           )}
 
-                          <span className=" text-[#1E1E1E] px-2 py-0.5 rounded text-xl">
+                          <span className=" text-[#1e1e1e] px-2 py-0.5 rounded text-xl">
                             {match.home_goals ?? '-'} : {match.away_goals ?? '-'}
                           </span>
 
@@ -389,18 +389,18 @@ if (formData.id) {
 
                         </div>
                       </td>
-                      <td className="p-3 text-center text-md font-bold text-[#1E1E1E]">
+                      <td className="p-3 text-center text-md font-bold text-[#1e1e1e]">
                         {match.round_name ? `${match.round_name} (L${match.leg})` : `Fase ${match.fase}`}
                       </td>
                       <td className="p-3 text-center">
-                        <span className={`text-MD px-2 py-1 font-bold ${match.status === 'finished' ? 'text-green-500' : 'text-[#1E1E1E]'}`}>
+                        <span className={`text-MD px-2 py-1 font-bold ${match.status === 'finished' ? 'text-green-500' : 'text-[#1e1e1e]'}`}>
                           {match.status === 'finished' ? 'Finalizado' : match.status === 'pending' ? 'Pendiente' : match.status}
                         </span>
                       </td>
                       <td className="p-3 text-center">
                         <button 
                           onClick={() => handleOpenModal(match)}
-                          className="text-xs rounded-full border border-[#1E1E1E] text-[#1E1E1E] px-3 py-1 font-bold uppercase transition-colors"
+                          className="text-xs rounded-full border border-[#1e1e1e] text-[#1e1e1e] px-3 py-1 font-bold uppercase transition-colors"
                         >
                           Editar
                         </button>
@@ -419,7 +419,7 @@ if (formData.id) {
           <div className="bg-white/95 border border-white/50 shadow-2xl w-full max-w-2xl p-6 relative animate-fade-up mt-10 mb-10">
             <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-gray-500 hover:text-black font-black text-xl">✕</button>
             
-            <h2 className="text-2xl font-black uppercase text-[#011A38] mb-6 border-b-2 border-[#011A38] pb-2">
+            <h2 className="text-2xl font-black uppercase text-[#043AB7] mb-6 border-b-2 border-[#043AB7] pb-2">
               {formData.id ? `Editar Partido #${formData.id}` : 'Crear Nuevo Partido'}
             </h2>
 
@@ -428,11 +428,11 @@ if (formData.id) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Fase / Fecha</label>
-                  <input type="number" required value={formData.fase || ''} onChange={e => setFormData({...formData, fase: parseInt(e.target.value)})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
+                  <input type="number" required value={formData.fase || ''} onChange={e => setFormData({...formData, fase: parseInt(e.target.value)})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Fecha y Hora (Kickoff)</label>
-                  <input type="datetime-local" required value={formData.kickoff || ''} onChange={e => setFormData({...formData, kickoff: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
+                  <input type="datetime-local" required value={formData.kickoff || ''} onChange={e => setFormData({...formData, kickoff: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden" />
                 </div>
               </div>
 
@@ -442,7 +442,7 @@ if (formData.id) {
                   <div className="space-y-3">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Local</label>
-                      <select value={formData.home_team_id || ''} onChange={e => setFormData({...formData, home_team_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden bg-white">
+                      <select value={formData.home_team_id || ''} onChange={e => setFormData({...formData, home_team_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden bg-white">
                         <option value="">TBD (Por Definir)</option>
                         {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                       </select>
@@ -450,11 +450,11 @@ if (formData.id) {
                     <div className="flex gap-2">
                       <div className="flex-1">
                         <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Goles</label>
-                        <input type="number" placeholder="-" value={formData.home_goals ?? ''} onChange={e => setFormData({...formData, home_goals: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-black focus:border-[#011A38] outline-hidden" />
+                        <input type="number" placeholder="-" value={formData.home_goals ?? ''} onChange={e => setFormData({...formData, home_goals: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-black focus:border-[#043AB7] outline-hidden" />
                       </div>
                       <div className="flex-1">
                         <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Penales</label>
-                        <input type="number" placeholder="-" value={formData.home_penalties ?? ''} onChange={e => setFormData({...formData, home_penalties: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-bold text-gray-500 focus:border-[#011A38] outline-hidden" />
+                        <input type="number" placeholder="-" value={formData.home_penalties ?? ''} onChange={e => setFormData({...formData, home_penalties: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-bold text-gray-500 focus:border-[#043AB7] outline-hidden" />
                       </div>
                     </div>
                   </div>
@@ -462,7 +462,7 @@ if (formData.id) {
                   <div className="space-y-3">
                     <div>
                       <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Visitante</label>
-                      <select value={formData.away_team_id || ''} onChange={e => setFormData({...formData, away_team_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden bg-white">
+                      <select value={formData.away_team_id || ''} onChange={e => setFormData({...formData, away_team_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden bg-white">
                         <option value="">TBD (Por Definir)</option>
                         {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                       </select>
@@ -470,11 +470,11 @@ if (formData.id) {
                     <div className="flex gap-2">
                       <div className="flex-1">
                         <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Goles</label>
-                        <input type="number" placeholder="-" value={formData.away_goals ?? ''} onChange={e => setFormData({...formData, away_goals: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-black focus:border-[#011A38] outline-hidden" />
+                        <input type="number" placeholder="-" value={formData.away_goals ?? ''} onChange={e => setFormData({...formData, away_goals: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-black focus:border-[#043AB7] outline-hidden" />
                       </div>
                       <div className="flex-1">
                         <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Penales</label>
-                        <input type="number" placeholder="-" value={formData.away_penalties ?? ''} onChange={e => setFormData({...formData, away_penalties: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-bold text-gray-500 focus:border-[#011A38] outline-hidden" />
+                        <input type="number" placeholder="-" value={formData.away_penalties ?? ''} onChange={e => setFormData({...formData, away_penalties: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 text-center text-xl font-bold text-gray-500 focus:border-[#043AB7] outline-hidden" />
                       </div>
                     </div>
                   </div>
@@ -484,30 +484,30 @@ if (formData.id) {
 {/**
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 border border-gray-200">
                 <div className="md:col-span-4 border-b border-gray-200 pb-2 mb-2">
-                  <h3 className="text-xs font-black uppercase text-[#011A38]">Configuración de Playoffs</h3>
+                  <h3 className="text-xs font-black uppercase text-[#043AB7]">Configuración de Playoffs</h3>
                   <p className="text-[10px] text-gray-500">Completar solo si es un partido de fase final.</p>
                 </div>
                 
                 <div className="md:col-span-2">
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Instancia (Ej: Semifinal)</label>
-                  <input type="text" placeholder="Dejar vacío si es regular" value={formData.round_name || ''} onChange={e => setFormData({...formData, round_name: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
+                  <input type="text" placeholder="Dejar vacío si es regular" value={formData.round_name || ''} onChange={e => setFormData({...formData, round_name: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden" />
                 </div>
                 
                 <div>
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Leg (1=Ida)</label>
-                  <input type="number" min="1" max="2" value={formData.leg || ''} onChange={e => setFormData({...formData, leg: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
+                  <input type="number" min="1" max="2" value={formData.leg || ''} onChange={e => setFormData({...formData, leg: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden" />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">ID Global (Agrupador)</label>
-                  <input type="number" placeholder="Ej: 101" value={formData.aggregate_tie_id || ''} onChange={e => setFormData({...formData, aggregate_tie_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#011A38] outline-hidden" />
+                  <input type="number" placeholder="Ej: 101" value={formData.aggregate_tie_id || ''} onChange={e => setFormData({...formData, aggregate_tie_id: e.target.value ? parseInt(e.target.value) : null})} className="w-full border-2 border-gray-300 p-2 font-bold focus:border-[#043AB7] outline-hidden" />
                 </div>
               </div>
  */}
               <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t-2 border-gray-200">
                 <div className="w-full md:w-1/3">
                   <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Estado del Partido</label>
-                  <select value={formData.status || 'pending'} onChange={e => setFormData({...formData, status: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-black uppercase focus:border-[#011A38] outline-hidden bg-white">
+                  <select value={formData.status || 'pending'} onChange={e => setFormData({...formData, status: e.target.value})} className="w-full border-2 border-gray-300 p-2 font-black uppercase focus:border-[#043AB7] outline-hidden bg-white">
                     <option value="pending">Pendiente</option>
                     <option value="live">En Vivo</option>
                     <option value="finished">Finalizado</option>
@@ -518,7 +518,7 @@ if (formData.id) {
                   <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 px-6 py-3 font-bold text-gray-500 uppercase hover:bg-gray-100 transition-colors">
                     Cancelar
                   </button>
-                  <button type="submit" disabled={saving} className="flex-1 bg-[#011A38] hover:bg-black text-white px-8 py-3 font-black uppercase tracking-widest transition-colors shadow-md disabled:opacity-50">
+                  <button type="submit" disabled={saving} className="flex-1 bg-[#043AB7] hover:bg-black text-white px-8 py-3 font-black uppercase tracking-widest transition-colors shadow-md disabled:opacity-50">
                     {saving ? 'Guardando...' : 'Guardar'}
                   </button>
                 </div>

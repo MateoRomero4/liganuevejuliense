@@ -269,10 +269,10 @@ try {
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
       </div>
     )
@@ -282,7 +282,7 @@ try {
     return (
       <div className="w-full min-h-[70vh] flex flex-col items-center justify-center p-4 text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">{error}</h2>
-        <Link href="/login" className="bg-[#011A38] text-white px-6 py-3 font-bold uppercase tracking-wider hover:bg-opacity-90 transition-all">
+        <Link href="/login" className="bg-[#043AB7] text-white px-6 py-3 font-bold uppercase tracking-wider hover:bg-opacity-90 transition-all">
           Ir a Iniciar Sesión
         </Link>
       </div>
@@ -353,7 +353,7 @@ try {
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 md:py-10">
         
         <div className="flex justify-between items-center w-full animate-fade-up mb-8 text-center" style={{ animationDelay: '100ms' }}>
-          <h1 className="text-2xl md:text-5xl font-black tracking-tight text-[#1E1E1E] mb-2">
+          <h1 className="text-2xl md:text-5xl font-black tracking-tight text-[#1e1e1e] mb-2">
             Mi Prode
           </h1>
 
@@ -361,8 +361,8 @@ try {
           <button
             onClick={handleSave}
             disabled={saving}
-            className={` border border-white text-white bg-linear-to-l from-[#070128] to-[#011A38] rounded-full py-2 px-3 md:py-3 md:px-6 font-medium uppercase tracking-widest text-sm md:text-md transition-all
-              ${saving ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1E1E1E] hover:-translate-y-1'}`}
+            className={` border border-white text-white bg-linear-to-l from-[#2980FF] to-[#043AB7] rounded-full py-2 px-3 md:py-3 md:px-6 font-medium uppercase tracking-widest text-sm md:text-md transition-all
+              ${saving ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1e1e1e] hover:-translate-y-1'}`}
           >
             {saving ? 'Guardando...' : 'Guardar Pronósticos'}
           </button>
@@ -385,19 +385,19 @@ try {
             <button 
               onClick={handlePrevInstance}
               disabled={currentInstance === availableInstances[0]}
-              className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+              className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
             >
               Anterior
             </button>
             
-            <span className="font-black text-lg md:text-2xl text-[#1E1E1E] min-w-[120px] text-center border-b-2 border-[#1E1E1E] pb-1 uppercase tracking-wider">
+            <span className="font-black text-lg md:text-2xl text-[#1e1e1e] min-w-[120px] text-center border-b-2 border-[#1e1e1e] pb-1 uppercase tracking-wider">
               {typeof currentInstance === 'number' ? `Fecha ${currentInstance}` : currentInstance}
             </span>
             
             <button 
               onClick={handleNextInstance}
               disabled={currentInstance === availableInstances[availableInstances.length - 1]}
-              className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+              className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
             >
               Siguiente
             </button>
@@ -462,8 +462,8 @@ function PredictionCard({ match, prediction, isLocked, earnedPoints, onChange, d
     >
       <div className="absolute inset-0 z-0 bg-white/10 backdrop-blur-sm border border-white transition-colors group-hover:bg-white/60" />
 
-      <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#011A38] z-30" />
-      <div className="absolute right-0 top-0 bottom-0 w-2 bg-[#011A38] z-30" />
+      <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#043AB7] z-30" />
+      <div className="absolute right-0 top-0 bottom-0 w-2 bg-[#043AB7] z-30" />
 
       <div className="flex items-center flex-1 justify-start h-full relative z-10 pl-4 md:pl-15">
         {match.home_team?.badge_svg && (
@@ -480,7 +480,7 @@ function PredictionCard({ match, prediction, isLocked, earnedPoints, onChange, d
 
       <div className="flex flex-col items-center justify-center relative z-20 h-full w-36 md:w-48 flex-shrink-0 pt-2">
         {match.round_name && (
-            <span className="text-[10px] md:text-[11px] font-black uppercase text-[#011A38] mb-0.5 text-center leading-tight">
+            <span className="text-[10px] md:text-[11px] font-black uppercase text-[#043AB7] mb-0.5 text-center leading-tight">
                 {match.round_name} {match.leg === 1 ? '(Ida)' : match.leg === 2 ? '(Vuelta)' : ''}
             </span>
         )}
@@ -496,8 +496,8 @@ function PredictionCard({ match, prediction, isLocked, earnedPoints, onChange, d
             value={prediction.home_goals}
             onChange={(e) => onChange('home', e.target.value)}
             disabled={isLocked}
-            className={`w-10 h-10 md:w-12 md:h-12 text-center text-xl md:text-2xl font-black bg-white/70 border-2 border-gray-300 shadow-inner focus:outline-hidden focus:border-[#011A38] focus:bg-white transition-all
-              ${isLocked ? 'text-gray-500 bg-gray-100/50 border-gray-200 cursor-not-allowed' : 'text-[#1E1E1E]'}`}
+            className={`w-10 h-10 md:w-12 md:h-12 text-center text-xl md:text-2xl font-black bg-white/70 border-2 border-gray-300 shadow-inner focus:outline-hidden focus:border-[#043AB7] focus:bg-white transition-all
+              ${isLocked ? 'text-gray-500 bg-gray-100/50 border-gray-200 cursor-not-allowed' : 'text-[#1e1e1e]'}`}
             placeholder="-"
           />
           <span className="font-light text-gray-400">-</span>
@@ -508,15 +508,15 @@ function PredictionCard({ match, prediction, isLocked, earnedPoints, onChange, d
             value={prediction.away_goals}
             onChange={(e) => onChange('away', e.target.value)}
             disabled={isLocked}
-            className={`w-10 h-10 md:w-12 md:h-12 text-center text-xl md:text-2xl font-black bg-white/70 border-2 border-gray-300 shadow-inner focus:outline-hidden focus:border-[#011A38] focus:bg-white transition-all
-              ${isLocked ? 'text-gray-500 bg-gray-100/50 border-gray-200 cursor-not-allowed' : 'text-[#1E1E1E]'}`}
+            className={`w-10 h-10 md:w-12 md:h-12 text-center text-xl md:text-2xl font-black bg-white/70 border-2 border-gray-300 shadow-inner focus:outline-hidden focus:border-[#043AB7] focus:bg-white transition-all
+              ${isLocked ? 'text-gray-500 bg-gray-100/50 border-gray-200 cursor-not-allowed' : 'text-[#1e1e1e]'}`}
             placeholder="-"
           />
         </div>
 
         <div className="flex flex-col items-center justify-center w-full">
           {match.status === 'finished' && match.home_goals !== null && (
-            <span className="text-[9px] md:text-[10px] font-bold text-[#011A38] bg-white/80 px-2 py-0.5 rounded shadow-xs mb-1 border border-gray-200 uppercase tracking-wider">
+            <span className="text-[9px] md:text-[10px] font-bold text-[#043AB7] bg-white/80 px-2 py-0.5 rounded shadow-xs mb-1 border border-gray-200 uppercase tracking-wider">
               Real: {match.home_goals} - {match.away_goals}
             </span>
           )}
@@ -528,7 +528,7 @@ function PredictionCard({ match, prediction, isLocked, earnedPoints, onChange, d
             {earnedPoints !== null && (
                <span className={`text-[9px] md:text-[10px] px-2 py-0.5 uppercase font-bold tracking-wider ${
                  earnedPoints === 3 ? 'text-green-500' : 
-                 earnedPoints === 1 ? 'text-[#1E1E1E]' : 'text-red-500'
+                 earnedPoints === 1 ? 'text-[#1e1e1e]' : 'text-red-500'
                }`}>
                  {earnedPoints} {earnedPoints === 1 ? 'Punto' : 'Puntos'}
                </span>

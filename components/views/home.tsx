@@ -390,10 +390,10 @@ const profilesData = (profilesRes.data as Profile[]) || []
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
       </div>
     )
@@ -438,8 +438,8 @@ const profilesData = (profilesRes.data as Profile[]) || []
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-6 lg:gap-8 items-start">
           <section className="lg:row-span-2 min-w-0">
             <div className="animate-fade-up mb-4 flex items-center justify-between px-2" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1E1E1E] tracking-tight">Prode</h2>
-              <Link href="/?tab=prode" className="text-xs md:text-sm font-semibold text-[#011A38] hover:underline flex items-center gap-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#1e1e1e] tracking-tight">Prode</h2>
+              <Link href="/?tab=prode" className="text-xs md:text-sm font-semibold text-[#043AB7] hover:underline flex items-center gap-1">
                 Ver tabla completa →
               </Link>
             </div>
@@ -457,7 +457,7 @@ const profilesData = (profilesRes.data as Profile[]) || []
                 <div className="w-full border border-white overflow-hidden shadow-xs bg-white/40 backdrop-blur-sm transition-transform duration-300">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="bg-[#1e1e1e] text-white text-[9px] md:text-xs uppercase tracking-wider font-bold">
+                      <tr className="bg-[#043AB7] text-white text-[9px] md:text-xs uppercase tracking-wider font-bold">
                         <th className="p-2 md:p-4 text-center border-b border-white">POS</th>
                         <th className="p-2 md:p-4 border-b border-white">Participante</th>
                         <th className="p-2 md:p-4 text-center border-b border-white">PTS</th>
@@ -492,8 +492,8 @@ const profilesData = (profilesRes.data as Profile[]) || []
 
           <section className="min-w-0">
             <div className="animate-fade-up mb-4 flex items-center justify-between px-2" style={{ animationDelay: '150ms' }}>
-              <h2 className="text-xl md:text-2xl font-bold text-[#1E1E1E] tracking-tight">Próximos encuentros</h2>
-              <Link href="/?tab=fixture" className="text-xs md:text-sm font-semibold text-[#011A38] hover:underline">Ver fixture →</Link>
+              <h2 className="text-xl md:text-2xl font-bold text-[#1e1e1e] tracking-tight">Próximos encuentros</h2>
+              <Link href="/?tab=fixture" className="text-xs md:text-sm font-semibold text-[#043AB7] hover:underline">Ver fixture →</Link>
             </div>
             {matchesToShow.length === 0 ? (
               <p className="animate-fade-up text-gray-500 font-medium text-center py-10" style={{ animationDelay: '300ms' }}>No hay partidos para mostrar en esta fecha.</p>
@@ -511,8 +511,8 @@ const profilesData = (profilesRes.data as Profile[]) || []
 
 <section className="min-w-0">
             <div className="animate-fade-up mb-4 flex items-center justify-between px-2" style={{ animationDelay: '200ms' }}>
-              <h2 className="text-xl md:text-2xl font-bold text-[#1E1E1E] tracking-tight">Últimos resultados</h2>
-              <Link href="/?tab=results" className="text-xs md:text-sm font-semibold text-[#011A38] hover:underline">Ver todos →</Link>
+              <h2 className="text-xl md:text-2xl font-bold text-[#1e1e1e] tracking-tight">Últimos resultados</h2>
+              <Link href="/?tab=results" className="text-xs md:text-sm font-semibold text-[#043AB7] hover:underline">Ver todos →</Link>
             </div>
             {resultsLoading ? (
               <div className="animate-fade-up w-full border border-white bg-white/40 backdrop-blur-sm py-8 text-center text-gray-400 font-medium" style={{ animationDelay: '350ms' }}>
@@ -546,14 +546,14 @@ const profilesData = (profilesRes.data as Profile[]) || []
 
           <section className="lg:col-span-2 min-w-0">
             <div className="animate-fade-up mb-4 flex items-center justify-between px-2" style={{ animationDelay: '500ms' }}>
-              <h2 className="text-xl md:text-2xl font-bold text-[#1E1E1E] tracking-tight">Posiciones</h2>
-              <Link href="/?tab=league" className="text-xs md:text-sm font-semibold text-[#011A38] hover:underline">Ver tabla completa →</Link>
+              <h2 className="text-xl md:text-2xl font-bold text-[#1e1e1e] tracking-tight">Posiciones</h2>
+              <Link href="/?tab=league" className="text-xs md:text-sm font-semibold text-[#043AB7] hover:underline">Ver tabla completa →</Link>
             </div>
             <Link href="/?tab=league" className="block group">
               <div className="animate-fade-up w-full border border-white overflow-hidden shadow-xs bg-white/40 backdrop-blur-sm transition-transform duration-300" style={{ animationDelay: '550ms' }}>
                 <table className="w-full text-left border-collapse whitespace-nowrap">
                   <thead>
-                    <tr className="bg-linear-to-l from-[#070128] to-[#011A38] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
+                    <tr className="bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
                       <th className="p-3 text-center border-b border-white">POS</th>
                       <th className="p-3 border-b border-white">Equipo</th>
                       <th className="p-3 text-center border-b border-white">PTS</th>
@@ -599,7 +599,7 @@ const profilesData = (profilesRes.data as Profile[]) || []
               <div
                 className={`absolute inset-0 transition-opacity duration-500 backdrop-blur-sm ${teamBannerVisible ? 'opacity-100' : 'opacity-0'}`}
                 style={{
-                  background: `repeating-linear-gradient(to right, ${activeTeam.colors?.[0] ?? '#011A38'}, ${activeTeam.colors?.[0] ?? '#011A38'} 8.333%, ${activeTeam.colors?.[1] ?? activeTeam.colors?.[0] ?? '#1E1E1E'} 8.333%, ${activeTeam.colors?.[1] ?? activeTeam.colors?.[0] ?? '#1E1E1E'} 16.666%)`
+                  background: `repeating-linear-gradient(to right, ${activeTeam.colors?.[0] ?? '#043AB7'}, ${activeTeam.colors?.[0] ?? '#043AB7'} 8.333%, ${activeTeam.colors?.[1] ?? activeTeam.colors?.[0] ?? '#1e1e1e'} 8.333%, ${activeTeam.colors?.[1] ?? activeTeam.colors?.[0] ?? '#1e1e1e'} 16.666%)`
                 }}
               />
 
@@ -709,9 +709,9 @@ function ResultCard({ match, delay = 0, isActive }: { match: MatchWithTeams, del
       <div className="w-20 md:w-24 bg-white flex flex-col items-center justify-center z-20 shadow-[0_0_15px_rgba(0,0,0,0.1)]">
          <span className="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase mb-1">F {match.fase}</span>
          <div className="flex items-center justify-center gap-1 md:gap-2">
-            <span className="text-xl md:text-2xl font-black text-[#1E1E1E]">{match.home_goals}</span>
+            <span className="text-xl md:text-2xl font-black text-[#1e1e1e]">{match.home_goals}</span>
             <span className="font-light text-sm text-gray-400">-</span>
-            <span className="text-xl md:text-2xl font-black text-[#1E1E1E]">{match.away_goals}</span>
+            <span className="text-xl md:text-2xl font-black text-[#1e1e1e]">{match.away_goals}</span>
          </div>
       </div>
 
@@ -753,11 +753,11 @@ function MatchCard({ match, delay, isActive, showFase }: { match: MatchWithTeams
       </div>
 
       <div className="absolute left-0 top-0 bottom-0 w-2 flex flex-col z-30">
-        <div className="h-full w-full bg-[#011A38]" />
+        <div className="h-full w-full bg-[#043AB7]" />
       </div>
 
       <div className="absolute right-0 top-0 bottom-0 w-2 flex flex-col z-30">
-        <div className="h-full w-full bg-[#011A38]" />
+        <div className="h-full w-full bg-[#043AB7]" />
       </div>
 
       <div className="flex items-center flex-1 justify-start h-full relative z-10 pl-4">
@@ -786,7 +786,7 @@ function MatchCard({ match, delay, isActive, showFase }: { match: MatchWithTeams
             <span className="text-[10px] md:text-xs font-semibold leading-none text-gray-900">{time}</span>
           </div>
         ) : (
-          <div className="text-xl md:text-2xl font-black tracking-widest text-[#1E1E1E]">
+          <div className="text-xl md:text-2xl font-black tracking-widest text-[#1e1e1e]">
             {match.home_goals}
             <span className="font-light mx-1 text-gray-400">-</span>
             {match.away_goals}

@@ -59,8 +59,8 @@ export default function ResetPasswordView() {
 
       <div className="animate-fade-up w-full max-w-md border border-white bg-white/40 backdrop-blur-sm p-8 shadow-xs" style={{ animationDelay: '100ms' }}>
         <div className="mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1E1E1E] tracking-tight">Nueva Contraseña</h2>
-          <p className="text-sm font-semibold text-[#011A38] mt-2">Ingresá tu nueva clave de acceso</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1e1e1e] tracking-tight">Nueva Contraseña</h2>
+          <p className="text-sm font-semibold text-[#043AB7] mt-2">Ingresá tu nueva clave de acceso</p>
         </div>
 
         {error && (
@@ -78,24 +78,24 @@ export default function ResetPasswordView() {
         ) : (
           <form onSubmit={handleUpdatePassword} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Nueva Contraseña</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Nueva Contraseña</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 minLength={6}
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Confirmar Contraseña</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Confirmar Contraseña</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 minLength={6}
                 required
               />
@@ -104,7 +104,7 @@ export default function ResetPasswordView() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-linear-to-l from-[#070128] to-[#011A38] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
+              className="w-full bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
             >
               {loading ? 'Guardando...' : 'Actualizar contraseña'}
             </button>

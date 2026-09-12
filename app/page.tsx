@@ -56,13 +56,20 @@ function ViewManager() {
           exit="exit"
           className="w-full md:mt-0 mt-10"
         >
-                  <motion.div className="flex w-full relative h-15">
+                  <motion.div className="flex w-full items-center justify-center gap-7 relative h-15">
+                              <Image 
+            src="/assets/escudos_monocromaticos/newlogo.svg" 
+            alt="Escudo Liga de Fútbol 9 de Julio Negro" 
+            width={42} 
+            height={42}
+            className="object-cover opacity-50"
+          />
           <Image 
             src="/assets/escudos_color/cat.svg" 
             alt="Escudo Liga de Fútbol 9 de Julio Negro" 
             width={52} 
             height={52}
-            className="absolute inset-0 w-full h-full object-contain"
+            className="object-cover brightness-0 opacity-50"
           />
         </motion.div>
           {ComponentToRender}

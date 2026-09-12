@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, CalendarDays, ListOrdered, Target, LogIn, LogOut, Settings } from "lucide-react"; 
+import { Trophy, CalendarDays, ListOrdered, Target, LogIn, LogOut, Settings, Home } from "lucide-react"; 
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -78,40 +78,33 @@ const { data: profile }: any = await supabase
   const getIconClass = (tabName: string) => {
     return `md:hidden transition-all duration-200 ${
       isTabActive(tabName) 
-        ? 'text-sky-400 scale-110 drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]' 
-        : 'text-gray-400 opacity-80'
+        ? 'text-white scale-110 drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]' 
+        : 'text-white opacity-60'
     }`;
   };
 
   return (
-    <nav className="fixed bottom-0 md:sticky md:top-0 md:bottom-auto z-50 w-full flex justify-center bg-linear-to-l from-[#070128] to-[#011A38] border-[#000000] border-t md:border-t-0 md:border-b shadow-lg">
+    <nav className="fixed bottom-0 md:sticky md:top-0 md:bottom-auto z-50 w-full flex justify-center bg-linear-to-l from-[#043AB7] to-[#2980FF] border-[#2980FF] border-t md:border-t-0 md:border-b shadow-lg">
       <div className="container h-16 md:h-12 max-w-7xl flex items-center justify-between px-12">
         
-        <div className="flex w-full md:w-auto items-center justify-between md:justify-start md:gap-6">
           
           <Link href="/?tab=home" className="group flex items-center gap-2 transition-opacity">
-            <div className={`relative w-8 h-8 md:hidden flex items-center justify-center transition-all duration-200 ${isTabActive('home') ? 'scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-100' : 'opacity-60'}`}>
-              <Image 
-                src="/assets/escudos_monocromaticos/icono.svg" 
-                alt="Escudo Liga de Fútbol 9 de Julio Monocromático" 
-                width={40} 
-                height={40}
-                className="w-full h-full object-contain"
-              />
+            <div className={`text-white hover:text-gray-300 transition-colors flex flex-col items-center gap-1`}>
+                          <Home size={26} className={getIconClass('home')} />
             </div>
             
-            <div className="relative w-15 h-15 mt-7 hidden md:block">
+            <div className="relative w-40 h-18 mt-1 hidden md:block">
               <Image 
-                src="/assets/escudos_color/logo.svg" 
+                src="/assets/escudos_color/logosuma.svg" 
                 alt="Escudo Liga de Fútbol 9 de Julio Color" 
                 width={52} 
                 height={52}
-                className="absolute inset-0 w-full h-full object-contain opacity-100 brightness-100 duration-300 hover:brightness-180 hover:scale-103 transition-transform"
+                className="absolute inset-0 w-full h-full object-contain opacity-100 brightness-100 duration-300 hover:scale-103 transition-transform"
               />
             </div>
           </Link>
-          
-          <Link href="/?tab=league" className="text-white hover:text-gray-300 transition-colors flex flex-col items-center gap-1">
+          <div className="flex gap-6 md:gap-8 items-center -ml-15">
+                      <Link href="/?tab=league" className="text-white hover:text-gray-300 transition-colors flex flex-col items-center gap-1">
             <Trophy size={26} className={getIconClass('league')} />
             <span className="hidden md:inline text-xs font-medium uppercase tracking-widest">Campeonato</span>
           </Link>
@@ -136,6 +129,8 @@ const { data: profile }: any = await supabase
               <span className="hidden md:inline text-xs font-medium uppercase tracking-widest">Prode</span>
             </Link>
           )}
+          </div>
+
 
           <div className="md:hidden flex items-center">
             {isLoggedIn ? (
@@ -150,7 +145,6 @@ const { data: profile }: any = await supabase
               </Link>
             )}
           </div>
-        </div>
             
         <div className="hidden md:flex items-center gap-4 h-full justify-end">
           {isLoggedIn ? (

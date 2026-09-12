@@ -11,7 +11,7 @@ const alata = Alata({
 });
 
 export const metadata: Metadata = {
-  title: "Liga Nuevejuliense de Fútbol",
+  title: "Suma Play - Liga Nuevejuliense de Fútbol",
   description: "Tabla de posiciones, fixture y prode oficial de la Liga de Fútbol de 9 de Julio.",
 };
 

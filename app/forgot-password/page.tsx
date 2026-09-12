@@ -45,8 +45,8 @@ export default function ForgotPasswordView() {
 
       <div className="animate-fade-up w-full max-w-md border border-white bg-white/40 backdrop-blur-sm p-8 shadow-xs" style={{ animationDelay: '100ms' }}>
         <div className="mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1E1E1E] tracking-tight">Recuperar Contraseña</h2>
-          <p className="text-sm font-semibold text-[#011A38] mt-2">Ingresá tu email para recibir un enlace de recuperación</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1e1e1e] tracking-tight">Recuperar Contraseña</h2>
+          <p className="text-sm font-semibold text-[#043AB7] mt-2">Ingresá tu email para recibir un enlace de recuperación</p>
         </div>
 
         {error && (
@@ -60,19 +60,19 @@ export default function ForgotPasswordView() {
             <div className="p-4 bg-green-100/80 border border-green-400 text-green-800 text-sm font-bold">
               Si el email está registrado, recibirás un enlace para cambiar tu contraseña en los próximos minutos.
             </div>
-            <Link href="/login" className="block w-full border border-[#011A38] text-[#011A38] p-3 text-sm uppercase tracking-wider font-bold hover:bg-white/50 transition-colors">
+            <Link href="/login" className="block w-full border border-[#043AB7] text-[#043AB7] p-3 text-sm uppercase tracking-wider font-bold hover:bg-white/50 transition-colors">
               Volver al Login
             </Link>
           </div>
         ) : (
           <form onSubmit={handleResetPassword} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Email</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 required
               />
             </div>
@@ -80,7 +80,7 @@ export default function ForgotPasswordView() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-linear-to-l from-[#070128] to-[#011A38] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
+              className="w-full bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
             >
               {loading ? 'Enviando...' : 'Enviar enlace'}
             </button>
@@ -88,8 +88,8 @@ export default function ForgotPasswordView() {
         )}
 
         {!success && (
-          <div className="mt-6 text-center text-sm font-medium text-[#1E1E1E]">
-            <Link href="/login" className="text-[#011A38] hover:underline font-bold">
+          <div className="mt-6 text-center text-sm font-medium text-[#1e1e1e]">
+            <Link href="/login" className="text-[#043AB7] hover:underline font-bold">
               ← Volver al Login
             </Link>
           </div>

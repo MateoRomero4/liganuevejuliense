@@ -61,8 +61,8 @@ const handleRegister = async (e: React.FormEvent) => {
 
       <div className="animate-fade-up w-full max-w-md border border-white bg-white/40 backdrop-blur-sm p-8 shadow-xs" style={{ animationDelay: '100ms' }}>
         <div className="mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1E1E1E] tracking-tight">Crear Cuenta</h2>
-          <p className="text-sm font-semibold text-[#011A38] mt-2">Sumate al Prode</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1e1e1e] tracking-tight">Crear Cuenta</h2>
+          <p className="text-sm font-semibold text-[#043AB7] mt-2">Sumate al Prode</p>
         </div>
 
         {error && (
@@ -76,42 +76,42 @@ const handleRegister = async (e: React.FormEvent) => {
             <div className="p-4 bg-green-100/80 border border-green-400 text-green-800 text-sm font-bold">
               ¡Registro exitoso! Revisá tu correo para confirmar tu cuenta.
             </div>
-            <Link href="/login" className="block w-full border border-[#011A38] text-[#011A38] p-3 text-sm uppercase tracking-wider font-bold hover:bg-white/50 transition-colors">
+            <Link href="/login" className="block w-full border border-[#043AB7] text-[#043AB7] p-3 text-sm uppercase tracking-wider font-bold hover:bg-white/50 transition-colors">
               Ir al Login
             </Link>
           </div>
         ) : (
           <form onSubmit={handleRegister} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Nombre de usuario</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Nombre de usuario</label>
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Ej: Juan Perez"
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Email</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Contraseña</label>
+              <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Contraseña</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+                className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
                 minLength={6}
                 required
               />
@@ -120,7 +120,7 @@ const handleRegister = async (e: React.FormEvent) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-linear-to-l from-[#070128] to-[#011A38] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
+              className="w-full bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
             >
               {loading ? 'Registrando...' : 'Registrarme'}
             </button>
@@ -128,9 +128,9 @@ const handleRegister = async (e: React.FormEvent) => {
         )}
 
         {!success && (
-          <div className="mt-6 text-center text-sm font-medium text-[#1E1E1E]">
+          <div className="mt-6 text-center text-sm font-medium text-[#1e1e1e]">
             ¿Ya tenés cuenta?{' '}
-            <Link href="/login" className="text-[#011A38] hover:underline font-bold">
+            <Link href="/login" className="text-[#043AB7] hover:underline font-bold">
               Ingresá acá
             </Link>
           </div>

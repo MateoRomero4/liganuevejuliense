@@ -148,10 +148,10 @@ export default function ResultsView() {
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
       </div>
     )
@@ -180,7 +180,7 @@ export default function ResultsView() {
           
           <div className="w-full">
             <div className="animate-fade-up mb-6 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight text-center">Últimos Resultados</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Últimos Resultados</h2>
             </div>
 
             {results.length > 0 && (
@@ -188,19 +188,19 @@ export default function ResultsView() {
                 <button 
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                  className="px-6 py-3 text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+                  className="px-6 py-3 text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
                 >
                   Anterior
                 </button>
                 
-                <span className="font-black text-xl md:text-2xl text-[#1E1E1E] min-w-[120px] text-center border-b-2 border-[#1E1E1E]">
+                <span className="font-black text-xl md:text-2xl text-[#1e1e1e] min-w-[120px] text-center border-b-2 border-[#1e1e1e]">
                   {currentPage} / {totalPages}
                 </span>
                 
                 <button 
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages || totalPages === 0}
-                  className="px-6 py-3 text-[#1E1E1E] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+                  className="px-6 py-3 text-[#1e1e1e] font-bold tracking-wide hover:opacity-70 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
                 >
                   Siguiente
                 </button>
@@ -228,8 +228,8 @@ export default function ResultsView() {
           {stats && (
             <div className="w-full max-w-4xl mx-auto pt-8 pb-12">
               <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '600ms' }}>
-                <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight mb-2 text-center">En Números</h2>
-                <p className="text-sm md:text-base font-bold text-black/70 border-b-2 border-[#011A38] pb-1 text-center">
+                <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight mb-2 text-center">En Números</h2>
+                <p className="text-sm md:text-base font-bold text-black/70 border-b-2 border-[#043AB7] pb-1 text-center">
                   Estadísticas del Torneo
                 </p>
               </div>
@@ -250,7 +250,7 @@ export default function ResultsView() {
                           className="w-8 h-8 md:w-12 md:h-12 object-contain"
                         />
                       )}
-                      <span className="font-black text-xl text-[#1E1E1E]">
+                      <span className="font-black text-xl text-[#1e1e1e]">
                         {stats.biggestWin.home_goals}-{stats.biggestWin.away_goals}
                       </span>
                       {stats.biggestWin.away_team?.badge_svg && (
@@ -310,9 +310,9 @@ function ResultCard({ match, delay, isActive }: { match: MatchWithTeams, delay: 
       <div className="w-20 md:w-24 bg-white flex flex-col items-center justify-center z-20 shadow-[0_0_15px_rgba(0,0,0,0.1)]">
          <span className="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase mb-1">F {match.fase}</span>
          <div className="flex items-center justify-center gap-1 md:gap-2">
-            <span className="text-xl md:text-2xl font-black text-[#1E1E1E]">{match.home_goals}</span>
+            <span className="text-xl md:text-2xl font-black text-[#1e1e1e]">{match.home_goals}</span>
             <span className="font-light text-sm text-gray-400">-</span>
-            <span className="text-xl md:text-2xl font-black text-[#1E1E1E]">{match.away_goals}</span>
+            <span className="text-xl md:text-2xl font-black text-[#1e1e1e]">{match.away_goals}</span>
          </div>
       </div>
 
@@ -348,7 +348,7 @@ function StatCard({ label, value, delay }: { label: string, value: string, delay
       style={{ animationDelay: `${delay}ms` }}
     >
       <span className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-wider text-center mb-1">{label}</span>
-      <span className="text-2xl md:text-4xl font-black text-[#1E1E1E]">{value}</span>
+      <span className="text-2xl md:text-4xl font-black text-[#1e1e1e]">{value}</span>
     </div>
   )
 }

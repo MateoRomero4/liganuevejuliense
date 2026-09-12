@@ -48,8 +48,8 @@ export default function LoginView() {
 
       <div className="animate-fade-up w-full max-w-md border border-white bg-white/40 backdrop-blur-sm p-8 shadow-xs" style={{ animationDelay: '100ms' }}>
         <div className="mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1E1E1E] tracking-tight">Iniciar Sesión</h2>
-          <p className="text-sm font-semibold text-[#011A38] mt-2">Ingresá para cargar tus pronósticos</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1e1e1e] tracking-tight">Iniciar Sesión</h2>
+          <p className="text-sm font-semibold text-[#043AB7] mt-2">Ingresá para cargar tus pronósticos</p>
         </div>
 
         {error && (
@@ -60,23 +60,23 @@ export default function LoginView() {
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Email</label>
+            <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+              className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs uppercase tracking-wider font-bold text-[#1E1E1E] mb-2">Contraseña</label>
+            <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Contraseña</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/60 border border-white p-3 text-[#1E1E1E] focus:outline-none focus:bg-white/80 transition-colors"
+              className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
               required
             />
           </div>
@@ -84,15 +84,15 @@ export default function LoginView() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-linear-to-l from-[#070128] to-[#011A38] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
+            className="w-full bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white p-3 text-sm uppercase tracking-wider font-bold hover:opacity-90 transition-opacity disabled:opacity-50 mt-4"
           >
             {loading ? 'Ingresando...' : 'Entrar'}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm font-medium text-[#1E1E1E]">
+        <div className="mt-6 text-center text-sm font-medium text-[#1e1e1e]">
           ¿No tenés cuenta?{' '}
-          <Link href="/register" className="text-[#011A38] hover:underline font-bold">
+          <Link href="/register" className="text-[#043AB7] hover:underline font-bold">
             Registrate acá
           </Link>
         </div>

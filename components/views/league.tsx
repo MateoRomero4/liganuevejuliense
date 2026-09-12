@@ -262,10 +262,10 @@ const teamsData = (teamsResponse.data as Team[]) || [];
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>      </div>
     )
   }
@@ -288,13 +288,13 @@ const teamsData = (teamsResponse.data as Team[]) || [];
           
           <div className="w-full">
             <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight text-center">Posiciones</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Posiciones</h2>
             </div>
 
             <div className="w-full border border-white overflow-hidden animate-fade-up shadow-xs bg-white/40 backdrop-blur-sm" style={{ animationDelay: '200ms' }}>
               <table className="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
-                  <tr className="bg-linear-to-l from-[#070128] to-[#011A38] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
+                  <tr className="bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
                     <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">POS</th>
                     <th className="p-3 md:p-4 border-b border-white drop-shadow-sm">Equipo</th>
                     <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">PTS</th>
@@ -342,8 +342,8 @@ const teamsData = (teamsResponse.data as Team[]) || [];
           </div>
           <div className="w-full mt-4 pb-12">
             <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '400ms' }}>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight mb-2 text-center">Fase Final</h2>
-              <p className="text-sm md:text-base font-bold text-black/70 border-b-2 border-[#011A38] pb-1 text-center">
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight mb-2 text-center">Fase Final</h2>
+              <p className="text-sm md:text-base font-bold text-black/70 border-b-2 border-[#043AB7] pb-1 text-center">
                 Los cruces hasta el momento
               </p>
             </div>
@@ -388,7 +388,7 @@ const teamsData = (teamsResponse.data as Team[]) || [];
                   
                   <div className="flex flex-col items-center md:absolute md:bottom-0 md:left-0 md:right-0">
                     <h3 
-                      className="animate-fade-up text-[11px] md:text-sm font-bold text-[#1E1E1E] mb-2 text-center drop-shadow-sm uppercase tracking-wide" 
+                      className="animate-fade-up text-[11px] md:text-sm font-bold text-[#1e1e1e] mb-2 text-center drop-shadow-sm uppercase tracking-wide" 
                       style={{ animationDelay: '1500ms' }}
                     >
                       3º y 4º Puesto
@@ -441,7 +441,7 @@ function BracketCard({ tie, playoffLabel, delay, isActive, isFinal }: { tie: Pla
       className={`animate-fade-up overflow-hidden flex flex-col font-medium border border-white w-full mx-auto transition-all duration-700 ease-in-out shadow-sm`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className={`backdrop-blur-md text-[9px] md:text-[11px] uppercase text-center py-1.5 md:py-2 tracking-wider font-bold bg-linear-to-l from-[#070128] to-[#011A38] drop-shadow-sm flex items-center justify-center gap-1
+      <div className={`backdrop-blur-md text-[9px] md:text-[11px] uppercase text-center py-1.5 md:py-2 tracking-wider font-bold bg-linear-to-l from-[#2980FF] to-[#043AB7] drop-shadow-sm flex items-center justify-center gap-1
         ${isFinal ? 'text-[#d5b15e]' : 'text-white'}`}
       >
         <span>{isFinal ? 'GRAN FINAL' : (tie.round_name || playoffLabel)}</span>

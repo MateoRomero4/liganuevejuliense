@@ -128,10 +128,10 @@ const profilesData = (profilesRes.data as Profile[]) || [];
   loop 
   muted 
   playsInline
-  className="hidden md:block w-24 h-24 md:w-48 md:h-48 object-contain opacity-20 -mt-[50px] md:-mt-[50px]" 
+  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
 >
-  <source src="/assets/loader.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader.webm" type="video/webm" />
+  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+  <source src="/assets/loader2.webm" type="video/webm" />
 </video>
       </div>
     )
@@ -159,13 +159,13 @@ const profilesData = (profilesRes.data as Profile[]) || [];
 
 
             <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1E1E1E] tracking-tight text-center">Prode</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Prode</h2>
             </div>
 
             <div className="w-full border border-white overflow-hidden animate-fade-up shadow-xs bg-white/40 backdrop-blur-sm" style={{ animationDelay: '200ms' }}>
               <table className="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
-                  <tr className="bg-linear-to-l from-[#070128] to-[#011A38] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
+                  <tr className="bg-linear-to-l from-[#2980FF] to-[#043AB7] text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
                     <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">POS</th>
                     <th className="p-3 md:p-4 border-b border-white drop-shadow-sm">Participante</th>
                     <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">PTS</th>
