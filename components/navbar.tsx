@@ -85,9 +85,8 @@ const { data: profile }: any = await supabase
 
   return (
     <nav className="fixed bottom-0 md:sticky md:top-0 md:bottom-auto z-50 w-full flex justify-center bg-linear-to-l from-[#043AB7] to-[#2980FF] border-[#2980FF] border-t md:border-t-0 md:border-b shadow-lg">
-      <div className="container h-16 md:h-12 max-w-7xl flex items-center justify-between px-12">
+      <div className="container h-16 md:h-12 max-w-7xl flex items-center justify-between px-4 md:px-12">
         
-          
           <Link href="/?tab=home" className="group flex items-center gap-2 transition-opacity">
             <div className={`text-white hover:text-gray-300 transition-colors flex flex-col items-center gap-1`}>
                           <Home size={26} className={getIconClass('home')} />
@@ -103,7 +102,8 @@ const { data: profile }: any = await supabase
               />
             </div>
           </Link>
-          <div className="flex gap-6 md:gap-8 items-center -ml-15">
+
+          <div className="flex flex-1 justify-evenly md:flex-none md:justify-center md:gap-8 items-center md:-ml-15">
                       <Link href="/?tab=league" className="text-white hover:text-gray-300 transition-colors flex flex-col items-center gap-1">
             <Trophy size={26} className={getIconClass('league')} />
             <span className="hidden md:inline text-xs font-medium uppercase tracking-widest">Campeonato</span>
@@ -131,16 +131,13 @@ const { data: profile }: any = await supabase
           )}
           </div>
 
-
           <div className="md:hidden flex items-center">
             {isLoggedIn ? (
               <button onClick={handleLogout} className="text-white hover:text-gray-300 flex flex-col items-center gap-1">
-
                 <LogOut size={22} className="text-red-400" />
               </button>
             ) : (
               <Link href="/login" className="text-white hover:text-gray-300 flex flex-col items-center gap-1">
-
                 <LogIn size={22} className={getIconClass('login')} />
               </Link>
             )}
