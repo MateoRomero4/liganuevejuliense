@@ -70,16 +70,21 @@ export default function LoginView() {
             />
           </div>
 
-          <div>
-            <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Contraseña</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
-              required
-            />
-          </div>
+<div>
+        <label className="block text-xs uppercase tracking-wider font-bold text-[#1e1e1e] mb-2">Contraseña</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full bg-white/60 border border-white p-3 text-[#1e1e1e] focus:outline-none focus:bg-white/80 transition-colors"
+          required
+        />
+        <div className="mt-2 text-right">
+          <Link href="/forgot-password" className="text-xs font-bold text-[#043AB7] hover:underline">
+            ¿Olvidaste tu contraseña?
+          </Link>
+        </div>
+      </div>
 
           <button
             type="submit"
