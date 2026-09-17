@@ -43,6 +43,7 @@ export default function HomeView() {
   const [loading, setLoading] = useState(true)
   const [resultsLoading, setResultsLoading] = useState(true)
   const [prodeLoading, setProdeLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const [isFadingOut, setIsFadingOut] = useState(false)
 
@@ -63,6 +64,26 @@ export default function HomeView() {
   const [teamBannerVisible, setTeamBannerVisible] = useState<boolean>(true)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  // Chequeo de sesión
+  useEffect(() => {
+    const supabase = createClient()
+    
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setIsLoggedIn(!!session?.user)
+    }
+    
+    checkSession()
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsLoggedIn(!!session?.user)
+    })
+
+    return () => {
+      authListener.subscription.unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     async function loadHomeData() {
@@ -117,7 +138,7 @@ export default function HomeView() {
           }
         }
 
-const teamsData = (teamsResponse.data as Team[]) || []
+        const teamsData = (teamsResponse.data as Team[]) || []
         setTeams(teamsData)
 
         const standingMatchesData = (matchesResponse.data as Match[]) || []
@@ -138,7 +159,7 @@ const teamsData = (teamsResponse.data as Team[]) || []
             }
           })
 
-if (standingMatchesData) {
+          if (standingMatchesData) {
             standingMatchesData.forEach(m => {
               if (m.home_goals !== null && m.away_goals !== null && m.home_team_id !== null && m.away_team_id !== null) {
                 const hid = m.home_team_id
@@ -252,7 +273,7 @@ if (standingMatchesData) {
         if (matchesRes.error) throw matchesRes.error
         if (predictionsRes.error) throw predictionsRes.error
 
-const profilesData = (profilesRes.data as Profile[]) || [] 
+        const profilesData = (profilesRes.data as Profile[]) || [] 
         const matchesData = (matchesRes.data as Match[]) || [] 
         const predictionsData = (predictionsRes.data as Prediction[]) || [] 
 
@@ -384,17 +405,17 @@ const profilesData = (profilesRes.data as Profile[]) || []
   if (loading) {
     return (
       <div className={`w-full min-h-screen flex items-center justify-center transition-opacity duration-500 ease-in-out ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}>
-<video 
-  ref={videoRef}
-  autoPlay 
-  loop 
-  muted 
-  playsInline
-  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
->
-  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader2.webm" type="video/webm" />
-</video>
+        <video 
+          ref={videoRef}
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
+        >
+          <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+          <source src="/assets/loader2.webm" type="video/webm" />
+        </video>
       </div>
     )
   }
@@ -470,7 +491,6 @@ const profilesData = (profilesRes.data as Profile[]) || []
                           <td className="text-center font-bold text-black/70 text-sm md:text-base">{idx + 1}</td>
                           <td className="font-semibold text-black/70 text-sm md:text-lg pt-1 pb-1">
                             <div className="flex items-center min-w-0">
-
                               <span className="truncate">{user.display_name}</span>
                             </div>
                           </td>
@@ -509,7 +529,18 @@ const profilesData = (profilesRes.data as Profile[]) || []
             )}
           </section>
 
-<section className="min-w-0">
+          <section className="min-w-0">
+            {isLoggedIn && (
+              <div className="animate-fade-up mb-6 px-2" style={{ animationDelay: '175ms' }}>
+                <Link 
+                  href="/mi-prode" 
+                  className="block w-full bg-linear-to-r from-[#043AB7] to-[#2980FF] hover:from-[#2980FF] hover:to-[#043AB7] text-white font-bold py-3 md:py-4 px-4 text-center  transition-all duration-300 uppercase tracking-widest border border-white/50"
+                >
+                  Cargar Mi Prode
+                </Link>
+              </div>
+            )}
+
             <div className="animate-fade-up mb-4 flex items-center justify-between px-2" style={{ animationDelay: '200ms' }}>
               <h2 className="text-xl md:text-2xl font-bold text-[#1e1e1e] tracking-tight">Últimos resultados</h2>
               <Link href="/?tab=results" className="text-xs md:text-sm font-semibold text-[#043AB7] hover:underline">Ver todos →</Link>
@@ -527,7 +558,7 @@ const profilesData = (profilesRes.data as Profile[]) || []
                 Aún no hay resultados registrados.
               </div>
             ) : (
-<Link href="/?tab=results" className="block group">
+              <Link href="/?tab=results" className="block group">
                 <div className="animate-fade-up w-full overflow-hidden " style={{ animationDelay: '350ms' }}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {recentResults.map((match, idx) => (
