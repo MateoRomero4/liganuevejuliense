@@ -33,8 +33,7 @@ export async function middleware(request: NextRequest) {
 
   const isAuthRoute = pathname.startsWith('/login') || 
                       pathname.startsWith('/register') || 
-                      pathname.startsWith('/forgot-password') || 
-                      pathname.startsWith('/reset-password')
+                      pathname.startsWith('/forgot-password')
 
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone()

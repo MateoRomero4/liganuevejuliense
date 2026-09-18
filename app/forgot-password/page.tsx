@@ -9,8 +9,7 @@ export default function ForgotPasswordView() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const handleResetPassword = async (e: React.FormEvent) => {
+const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
@@ -18,7 +17,7 @@ export default function ForgotPasswordView() {
     const supabase = createClient()
     
     const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
     })
 
     if (authError) {
