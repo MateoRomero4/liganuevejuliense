@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { Database } from '@/types/database.types'
+import { calculateProdePoints } from '@/lib/utils'
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 type Match = Database['public']['Tables']['matches']['Row'];
@@ -44,7 +45,7 @@ export default function ProdeView() {
           minimumLoadTimePromise
         ]);
 
-const profilesData = (profilesRes.data as Profile[]) || []; 
+        const profilesData = (profilesRes.data as Profile[]) || []; 
         const matchesData = (matchesRes.data as Match[]) || [];
         const predictionsData = (predictionsRes.data as Prediction[]) || []; 
 
@@ -70,14 +71,13 @@ const profilesData = (profilesRes.data as Profile[]) || [];
             const hgPred = pred.home_goals
             const agPred = pred.away_goals
 
-            const matchOutcome = hgMatch > agMatch ? 1 : hgMatch < agMatch ? -1 : 0
-            const predOutcome = hgPred > agPred ? 1 : hgPred < agPred ? -1 : 0
+            const puntos = calculateProdePoints(hgPred, agPred, hgMatch, agMatch)
+            
+            stats[pred.profile_id!].pts += puntos
 
-            if (hgMatch === hgPred && agMatch === agPred) {
-              stats[pred.profile_id!].pts += 3
+            if (puntos === 6) {
               stats[pred.profile_id!].plenos++
-            } else if (matchOutcome === predOutcome) {
-              stats[pred.profile_id!].pts += 1
+            } else if (puntos === 3) {
               stats[pred.profile_id!].aciertos++
             }
           }
@@ -122,17 +122,17 @@ const profilesData = (profilesRes.data as Profile[]) || [];
           isFadingOut ? 'opacity-0' : 'opacity-100'
         }`}
       >
-<video 
-  ref={videoRef}
-  autoPlay 
-  loop 
-  muted 
-  playsInline
-  className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
->
-  <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
-  <source src="/assets/loader2.webm" type="video/webm" />
-</video>
+        <video 
+          ref={videoRef}
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
+        >
+          <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
+          <source src="/assets/loader2.webm" type="video/webm" />
+        </video>
       </div>
     )
   }
@@ -156,8 +156,6 @@ const profilesData = (profilesRes.data as Profile[]) || [];
           
           <div className="w-full">
             
-
-
             <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
               <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Prode</h2>
             </div>

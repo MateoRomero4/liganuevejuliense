@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/types/database.types'
 import Link from 'next/link'
-
+import { calculateProdePoints } from '@/lib/utils' 
 type Team = Database['public']['Tables']['teams']['Row']
 type Match = Database['public']['Tables']['matches']['Row']
 type Profile = Database['public']['Tables']['profiles']['Row']
@@ -65,7 +65,6 @@ export default function HomeView() {
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
-  // Chequeo de sesión
   useEffect(() => {
     const supabase = createClient()
     
@@ -305,14 +304,13 @@ export default function HomeView() {
             const hgPred = prediction.home_goals
             const agPred = prediction.away_goals
 
-            const matchOutcome = hgMatch > agMatch ? 1 : hgMatch < agMatch ? -1 : 0
-            const predOutcome = hgPred > agPred ? 1 : hgPred < agPred ? -1 : 0
+            const puntos = calculateProdePoints(hgPred, agPred, hgMatch, agMatch)
+            
+            stats[profileId].pts += puntos
 
-            if (hgMatch === hgPred && agMatch === agPred) {
-              stats[profileId].pts += 3
+            if (puntos === 6) {
               stats[profileId].plenos++
-            } else if (matchOutcome === predOutcome) {
-              stats[profileId].pts += 1
+            } else if (puntos === 3) {
               stats[profileId].aciertos++
             }
           }
