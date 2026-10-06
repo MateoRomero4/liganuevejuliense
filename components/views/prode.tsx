@@ -34,60 +34,17 @@ export default function ProdeView() {
         
         const minimumLoadTimePromise = new Promise(resolve => setTimeout(resolve, 500));
         
-        const fetchProfiles = supabase.from('profiles').select('*')
-        const fetchMatches = supabase.from('matches').select('*').not('home_goals', 'is', null).not('away_goals', 'is', null)
-        const fetchPredictions = supabase.from('predictions').select('*')
+        const fetchRanking = supabase.from('ranking_prode').select('*');
 
-        const [profilesRes, matchesRes, predictionsRes] = await Promise.all([
-          fetchProfiles, 
-          fetchMatches, 
-          fetchPredictions,
+        const [rankingRes, _] = await Promise.all([
+          fetchRanking,
           minimumLoadTimePromise
         ]);
 
-        const profilesData = (profilesRes.data as Profile[]) || []; 
-        const matchesData = (matchesRes.data as Match[]) || [];
-        const predictionsData = (predictionsRes.data as Prediction[]) || []; 
+        if (rankingRes.error) throw rankingRes.error;
 
-        const stats: Record<string, UserStanding> = {}
-        profilesData.forEach(p => {
-          stats[p.id] = { 
-            id: p.id, 
-            display_name: p.display_name || p.email.split('@')[0], 
-            pts: 0, 
-            plenos: 0, 
-            aciertos: 0 
-          }
-        })
-
-        const matchesMap = new Map<number, Match>()
-        matchesData.forEach(m => matchesMap.set(m.id, m))
-
-        predictionsData.forEach(pred => {
-          const match = matchesMap.get(pred.match_id!)
-          if (match && stats[pred.profile_id!]) {
-            const hgMatch = match.home_goals!
-            const agMatch = match.away_goals!
-            const hgPred = pred.home_goals
-            const agPred = pred.away_goals
-
-            const puntos = calculateProdePoints(hgPred, agPred, hgMatch, agMatch)
-            
-            stats[pred.profile_id!].pts += puntos
-
-            if (puntos === 6) {
-              stats[pred.profile_id!].plenos++
-            } else if (puntos === 3) {
-              stats[pred.profile_id!].aciertos++
-            }
-          }
-        })
-
-        const sorted = Object.values(stats).sort((a, b) => {
-          return b.pts - a.pts || b.plenos - a.plenos || (a.display_name > b.display_name ? 1 : -1)
-        })
+        setStandings(rankingRes.data as UserStanding[]);
         
-        setStandings(sorted)
       } catch (err) {
         console.error("Error cargando tabla del prode:", err)
       } finally {
@@ -99,7 +56,6 @@ export default function ProdeView() {
     }
     loadData()
   }, [])
-
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 2.0;
