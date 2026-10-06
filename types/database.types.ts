@@ -22,5 +22,16 @@ export type Database = {
         Update: { id?: number; profile_id?: string | null; match_id?: number | null; home_goals?: number; away_goals?: number; created_at?: string };
       };
     };
+    Views: {
+      ranking_prode: {
+        Row: {
+          id: string;
+          display_name: string;
+          pts: number;
+          plenos: number;
+          aciertos: number;
+        };
+      };
+    };
   };
 };
