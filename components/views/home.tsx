@@ -257,74 +257,19 @@ export default function HomeView() {
     loadRecentResults()
   }, [])
 
-  useEffect(() => {
+useEffect(() => {
     async function loadProdeStandings() {
       try {
         const supabase = createClient()
+        
+        const { data, error } = await supabase
+          .from('ranking_prode')
+          .select('*')
+          .limit(10)
 
-        const [profilesRes, matchesRes, predictionsRes] = await Promise.all([
-          supabase.from('profiles').select('*'),
-          supabase.from('matches').select('*').not('home_goals', 'is', null).not('away_goals', 'is', null),
-          supabase.from('predictions').select('*')
-        ])
+        if (error) throw error
 
-        if (profilesRes.error) throw profilesRes.error
-        if (matchesRes.error) throw matchesRes.error
-        if (predictionsRes.error) throw predictionsRes.error
-
-        const profilesData = (profilesRes.data as Profile[]) || [] 
-        const matchesData = (matchesRes.data as Match[]) || [] 
-        const predictionsData = (predictionsRes.data as Prediction[]) || [] 
-
-        const stats: Record<string, UserStanding> = {}
-
-        profilesData.forEach((profile: Profile) => {
-          stats[profile.id] = {
-            id: profile.id,
-            display_name: profile.display_name || profile.email.split('@')[0],
-            pts: 0,
-            plenos: 0,
-            aciertos: 0
-          }
-        })
-
-        const matchesMap = new Map<number, Match>()
-
-        matchesData.forEach((match: Match) => {
-          matchesMap.set(match.id, match)
-        })
-
-        predictionsData.forEach((prediction: Prediction) => {
-          const match = matchesMap.get(prediction.match_id!)
-          const profileId = prediction.profile_id!
-
-          if (match && stats[profileId]) {
-            const hgMatch = match.home_goals!
-            const agMatch = match.away_goals!
-            const hgPred = prediction.home_goals
-            const agPred = prediction.away_goals
-
-            const puntos = calculateProdePoints(hgPred, agPred, hgMatch, agMatch)
-            
-            stats[profileId].pts += puntos
-
-            if (puntos === 6) {
-              stats[profileId].plenos++
-            } else if (puntos === 3) {
-              stats[profileId].aciertos++
-            }
-          }
-        })
-
-        const sorted = Object.values(stats).sort((a, b) => {
-          return (
-            b.pts - a.pts ||
-            b.plenos - a.plenos ||
-            (a.display_name > b.display_name ? 1 : -1)
-          )
-        })
-
-        setProdeStandings(sorted.slice(0, 10))
+        setProdeStandings(data as UserStanding[])
 
       } catch (err: any) {
         console.error('Error cargando tabla del prode:', err)
