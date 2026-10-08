@@ -34,8 +34,13 @@ export default function ProdeView() {
         
         const minimumLoadTimePromise = new Promise(resolve => setTimeout(resolve, 500));
         
-        const fetchRanking = supabase.from('ranking_prode').select('*');
-
+const fetchRanking = supabase
+  .from('ranking_prode')
+  .select('*')
+  .order('pts', { ascending: false })
+  .order('plenos', { ascending: false })
+  .order('display_name', { ascending: true });
+        
         const [rankingRes, _] = await Promise.all([
           fetchRanking,
           minimumLoadTimePromise
