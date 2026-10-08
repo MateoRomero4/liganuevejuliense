@@ -147,14 +147,21 @@ export default function AdministrateView() {
 const handleOpenModal = (match?: MatchWithTeams) => {
     if (match) {
       const date = new Date(match.kickoff);
-      const tzOffset = date.getTimezoneOffset() * 60000;
-      const localISOTime = new Date(date.getTime() - tzOffset).toISOString().slice(0, 16);
+      
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+      const localDatetimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+
       setFormData({
         id: match.id,
         fase: match.fase,
         home_team_id: match.home_team_id,
         away_team_id: match.away_team_id,
-        kickoff: new Date(match.kickoff).toISOString().slice(0, 16),
+        kickoff: localDatetimeString,
         status: match.status,
         home_goals: match.home_goals,
         away_goals: match.away_goals,
@@ -165,11 +172,20 @@ const handleOpenModal = (match?: MatchWithTeams) => {
         aggregate_tie_id: match.aggregate_tie_id
       })
     } else {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+      const localDatetimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+
       setFormData({
         fase: typeof currentInstance === 'number'
           ? currentInstance
           : 11,
-        kickoff: new Date().toISOString().slice(0, 16),
+        kickoff: localDatetimeString,
         status: 'pending',
         leg: 1
       })
