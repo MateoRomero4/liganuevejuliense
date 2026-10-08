@@ -263,9 +263,12 @@ useEffect(() => {
         const supabase = createClient()
         
         const { data, error } = await supabase
-          .from('ranking_prode')
-          .select('*')
-          .limit(10)
+  .from('ranking_prode')
+  .select('*')
+  .order('pts', { ascending: false })
+  .order('plenos', { ascending: false })
+  .order('display_name', { ascending: true })
+  .limit(10);
 
         if (error) throw error
 
