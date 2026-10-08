@@ -19,6 +19,7 @@ type PredictionState = {
   id?: number
   home_goals: string
   away_goals: string
+  updated_at?: string
 }
 
 export default function MiProdeView() {
@@ -143,7 +144,8 @@ export default function MiProdeView() {
               predsMap[p.match_id] = {
                 id: p.id,
                 home_goals: p.home_goals.toString(),
-                away_goals: p.away_goals.toString()
+                away_goals: p.away_goals.toString(),
+                updated_at: p.updated_at || p.created_at
               }
             }
           })
@@ -227,11 +229,18 @@ try {
         if (data) {
           setPredictions(prev => {
             const newState = { ...prev }
+            const now = new Date().toISOString()
             data.forEach((p: any) => {
               if (p.match_id) {
                 newState[p.match_id].id = p.id
+                newState[p.match_id].updated_at = now
               }
             })
+            toUpdate.forEach(u => {
+            if (u.match_id && newState[u.match_id]) {
+               newState[u.match_id].updated_at = now
+            }
+          })
             return newState
           })
         }
