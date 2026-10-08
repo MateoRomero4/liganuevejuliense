@@ -146,6 +146,9 @@ export default function AdministrateView() {
 
 const handleOpenModal = (match?: MatchWithTeams) => {
     if (match) {
+      const date = new Date(match.kickoff);
+      const tzOffset = date.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(date.getTime() - tzOffset).toISOString().slice(0, 16);
       setFormData({
         id: match.id,
         fase: match.fase,
