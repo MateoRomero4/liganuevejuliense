@@ -47,7 +47,6 @@ export default function ProdeView() {
           .order('fase', { ascending: false }) 
           .limit(1);
 
-        // Le asignamos el tipo explícitamente antes de preguntar por su .length
         const activeFaseData = activeFaseDataRaw as { fase: number }[] | null;
 
         let currentFase = 1;
@@ -167,6 +166,7 @@ export default function ProdeView() {
               title="Top 3 de la Fecha" 
               fase={currentFaseNum} 
               delay="150ms" 
+              isCompact={false}
             />
           )}
 
@@ -212,14 +212,15 @@ export default function ProdeView() {
             </div>
           </div>
 
-          {/* TOP 3 FECHA PASADA */}
+          {/* TOP 3 FECHA PASADA - Ahora con isCompact en true */}
           {currentFaseNum !== null && currentFaseNum > 1 && (
             <div className="pt-8">
               <Podium 
                 users={topPast} 
                 title="Top 3 de la Fecha Pasada" 
                 fase={currentFaseNum - 1} 
-                delay="400ms" 
+                delay="400ms"
+                isCompact={true}
               />
             </div>
           )}
@@ -230,50 +231,51 @@ export default function ProdeView() {
   )
 }
 
-// Componente del Podio para mostrar el Top 3 visualmente en formato tabla
-function Podium({ users, title, fase, delay }: { users: TopStanding[], title: string, fase: number, delay: string }) {
+// Componente del Podio adaptado con propiedad isCompact para hacerlo más corto visualmente
+function Podium({ users, title, fase, delay, isCompact = false }: { users: TopStanding[], title: string, fase: number, delay: string, isCompact?: boolean }) {
   if (!users || users.length === 0 || users[0].pts === 0) {
     return (
       <div className="w-full mb-4 animate-fade-up flex flex-col items-center" style={{ animationDelay: delay }}>
-        <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-2">{title} (Fecha {fase})</h3>
-        <p className="text-gray-500 font-medium text-sm">Aún no hay puntos registrados para esta fecha.</p>
+        <h3 className={`${isCompact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'} font-bold text-[#1e1e1e] mb-2`}>{title} (Fecha {fase})</h3>
+        <p className="text-gray-500 font-medium text-xs md:text-sm">Aún no hay puntos registrados para esta fecha.</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full mb-8 animate-fade-up" style={{ animationDelay: delay }}>
-      <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-4 text-center">{title} (Fecha {fase})</h3>
+    <div className={`w-full ${isCompact ? 'mb-4' : 'mb-8'} animate-fade-up`} style={{ animationDelay: delay }}>
+      <h3 className={`${isCompact ? 'text-lg md:text-xl mb-3' : 'text-xl md:text-2xl mb-4'} font-bold text-[#1e1e1e] text-center`}>{title} (Fecha {fase})</h3>
       
       <div className="w-full border border-white overflow-hidden shadow-xs bg-white/40 backdrop-blur-sm">
         <table className="w-full text-left border-collapse whitespace-nowrap">
           <thead>
-            {/* Zócalo superior con degradé negro (de gris oscuro a negro) */}
             <tr className="bg-gradient-to-l from-gray-800 to-black text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
-              <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">POS</th>
-              <th className="p-3 md:p-4 border-b border-white drop-shadow-sm">Participante</th>
-              <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">PTS</th>
-              <th className="p-3 md:p-4 text-center border-b border-white text-gray-300 drop-shadow-sm">PLENOS</th>
-              <th className="p-3 md:p-4 text-center border-b border-white text-gray-300 drop-shadow-sm">ACIERTOS</th>
+              <th className={`${isCompact ? 'p-2' : 'p-3 md:p-4'} text-center border-b border-white drop-shadow-sm`}>POS</th>
+              <th className={`${isCompact ? 'p-2' : 'p-3 md:p-4'} border-b border-white drop-shadow-sm`}>Participante</th>
+              <th className={`${isCompact ? 'p-2' : 'p-3 md:p-4'} text-center border-b border-white drop-shadow-sm`}>PTS</th>
+              <th className={`${isCompact ? 'p-2' : 'p-3 md:p-4'} text-center border-b border-white text-gray-300 drop-shadow-sm`}>PLENOS</th>
+              <th className={`${isCompact ? 'p-2' : 'p-3 md:p-4'} text-center border-b border-white text-gray-300 drop-shadow-sm`}>ACIERTOS</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, idx) => {
-              if (user.pts === 0) return null; // No mostrar a los que tengan 0 puntos
+              if (user.pts === 0) return null; 
               
               return (
                 <tr 
                   key={user.id} 
                   className={`border-b border-white transition-all duration-700 ease-in-out ${idx % 2 !== 0 ? 'bg-gray-50/50' : 'bg-transparent'}`}
                 >
-                  <td className="p-3 md:p-4 text-center font-bold text-black/90 drop-shadow-sm text-sm md:text-base">{idx + 1}</td>
-                  <td className="p-3 md:p-4 font-semibold text-black/90 text-sm md:text-lg flex items-center gap-2 md:gap-3">
-                    {/* Agregamos las medallas para los 3 primeros */}
+                  <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-base'} text-center font-bold text-black/90 drop-shadow-sm`}>{idx + 1}</td>
+                  <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-lg'} font-semibold text-black/90 flex items-center gap-2 md:gap-3`}>
+                    {idx === 0 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥇</span>}
+                    {idx === 1 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥈</span>}
+                    {idx === 2 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥉</span>}
                     <span className="truncate">{user.display_name}</span>
                   </td>
-                  <td className="p-3 md:p-4 text-center font-bold text-gray-900 text-base md:text-lg drop-shadow-sm">{user.pts}</td>
-                  <td className="p-3 md:p-4 text-center text-black/90 font-medium text-sm md:text-base drop-shadow-sm">{user.plenos}</td>
-                  <td className="p-3 md:p-4 text-center text-black/90 font-medium text-sm md:text-base drop-shadow-sm">{user.aciertos}</td>
+                  <td className={`${isCompact ? 'p-2 text-sm md:text-base' : 'p-3 md:p-4 text-base md:text-lg'} text-center font-bold text-gray-900 drop-shadow-sm`}>{user.pts}</td>
+                  <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-base'} text-center text-black/90 font-medium drop-shadow-sm`}>{user.plenos}</td>
+                  <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-base'} text-center text-black/90 font-medium drop-shadow-sm`}>{user.aciertos}</td>
                 </tr>
               )
             })}
