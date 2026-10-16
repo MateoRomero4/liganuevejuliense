@@ -2,13 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import Link from 'next/link'
 import { Database } from '@/types/database.types'
-import { calculateProdePoints } from '@/lib/utils'
-
-type Profile = Database['public']['Tables']['profiles']['Row'];
-type Match = Database['public']['Tables']['matches']['Row'];
-type Prediction = Database['public']['Tables']['predictions']['Row'];
 
 type UserStanding = {
   id: string;
@@ -18,49 +12,103 @@ type UserStanding = {
   aciertos: number;
 }
 
+type TopStanding = UserStanding & { fase: number };
+
 export default function ProdeView() {
   const [standings, setStandings] = useState<UserStanding[]>([])
+  const [topCurrent, setTopCurrent] = useState<TopStanding[]>([])
+  const [topPast, setTopPast] = useState<TopStanding[]>([])
+  const [currentFaseNum, setCurrentFaseNum] = useState<number | null>(null)
+  
   const [loading, setLoading] = useState(true)
   const [isFadingOut, setIsFadingOut] = useState(false)
-  
   const videoRef = useRef<HTMLVideoElement>(null)
-
   const [activeRow, setActiveRow] = useState(0)
 
   useEffect(() => {
     async function loadData() {
       try {
         const supabase = createClient()
-        
         const minimumLoadTimePromise = new Promise(resolve => setTimeout(resolve, 500));
         
-const fetchRanking = supabase
-  .from('ranking_prode')
-  .select('*')
-  .order('pts', { ascending: false })
-  .order('plenos', { ascending: false })
-  .order('display_name', { ascending: true });
+        // 1. Obtener el ranking global de siempre
+        const fetchRanking = supabase
+          .from('ranking_prode')
+          .select('*')
+          .order('pts', { ascending: false })
+          .order('plenos', { ascending: false })
+          .order('display_name', { ascending: true });
+
+        // 2. Determinar cuál es la fecha "Actual"
+        // Buscamos la fase más baja que aún tenga partidos pendientes
+        const { data: activeFaseData } = await supabase
+          .from('matches')
+          .select('fase')
+          .eq('status', 'pending')
+          .order('fase', { ascending: true })
+          .limit(1);
+
+        let currentFase = 1;
+        if (activeFaseData && activeFaseData.length > 0) {
+          currentFase = activeFaseData[0].fase;
+        } else {
+          // Si no hay pendientes, agarramos la última fase jugada
+          const { data: lastFaseData } = await supabase
+            .from('matches')
+            .select('fase')
+            .order('fase', { ascending: false })
+            .limit(1);
+          if (lastFaseData && lastFaseData.length > 0) {
+            currentFase = lastFaseData[0].fase;
+          }
+        }
         
-        const [rankingRes, _] = await Promise.all([
+        setCurrentFaseNum(currentFase);
+        const pastFase = currentFase - 1;
+
+        // 3. Obtener el Top 3 de la fecha actual
+        const fetchTopCurrent = supabase
+          .from('ranking_por_fase')
+          .select('*')
+          .eq('fase', currentFase)
+          .order('pts', { ascending: false })
+          .order('plenos', { ascending: false })
+          .limit(3);
+
+        // 4. Obtener el Top 3 de la fecha pasada (si existe)
+        const fetchTopPast = pastFase > 0 
+          ? supabase
+              .from('ranking_por_fase')
+              .select('*')
+              .eq('fase', pastFase)
+              .order('pts', { ascending: false })
+              .order('plenos', { ascending: false })
+              .limit(3)
+          : Promise.resolve({ data: [] });
+
+        const [rankingRes, topCurrentRes, topPastRes, _] = await Promise.all([
           fetchRanking,
+          fetchTopCurrent,
+          fetchTopPast,
           minimumLoadTimePromise
         ]);
 
         if (rankingRes.error) throw rankingRes.error;
 
         setStandings(rankingRes.data as UserStanding[]);
+        if (topCurrentRes.data) setTopCurrent(topCurrentRes.data as TopStanding[]);
+        if (topPastRes.data) setTopPast(topPastRes.data as TopStanding[]);
         
       } catch (err) {
-        console.error("Error cargando tabla del prode:", err)
+        console.error("Error cargando datos del prode:", err)
       } finally {
         setIsFadingOut(true)
-        setTimeout(() => {
-          setLoading(false)
-        }, 500)
+        setTimeout(() => setLoading(false), 500)
       }
     }
     loadData()
   }, [])
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 2.0;
@@ -78,19 +126,8 @@ const fetchRanking = supabase
 
   if (loading) {
     return (
-      <div 
-        className={`w-full min-h-screen flex items-center justify-center transition-opacity duration-500 ease-in-out ${
-          isFadingOut ? 'opacity-0' : 'opacity-100'
-        }`}
-      >
-        <video 
-          ref={videoRef}
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]" 
-        >
+      <div className={`w-full min-h-screen flex items-center justify-center transition-opacity duration-500 ease-in-out ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}>
+        <video ref={videoRef} autoPlay loop muted playsInline className="hidden md:block w-48 h-48 md:w-78 md:h-78 object-contain opacity-20 -mt-[200px]">
           <source src="/assets/loader2.mov" type='video/mp4; codecs="hvc1"' />
           <source src="/assets/loader2.webm" type="video/webm" />
         </video>
@@ -100,7 +137,6 @@ const fetchRanking = supabase
 
   return (
     <div className="relative w-full min-h-screen py-5 overflow-hidden">
-      
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(30px); }
@@ -115,12 +151,23 @@ const fetchRanking = supabase
       <div className="relative z-10 w-full max-w-5xl mx-auto py-5">
         <div className="w-full max-w-3xl mx-auto space-y-12 px-2 md:px-0 flex flex-col">
           
-          <div className="w-full">
-            
-            <div className="animate-fade-up mb-8 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Prode</h2>
-            </div>
+          <div className="animate-fade-up mb-2 flex flex-col items-center justify-center" style={{ animationDelay: '100ms' }}>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#1e1e1e] tracking-tight text-center">Prode</h2>
+          </div>
 
+          {/* TOP 3 FECHA ACTUAL */}
+          {currentFaseNum !== null && (
+            <Podium 
+              users={topCurrent} 
+              title="Top 3 de la Fecha Actual" 
+              fase={currentFaseNum} 
+              delay="150ms" 
+            />
+          )}
+
+          {/* TABLA GLOBAL */}
+          <div className="w-full">
+            <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-4 text-center animate-fade-up" style={{ animationDelay: '180ms' }}>Ranking Global</h3>
             <div className="w-full border border-white overflow-hidden animate-fade-up shadow-xs bg-white/40 backdrop-blur-sm" style={{ animationDelay: '200ms' }}>
               <table className="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
@@ -143,7 +190,6 @@ const fetchRanking = supabase
                     >
                       <td className="p-3 md:p-4 text-center font-bold text-black/90 drop-shadow-sm text-sm md:text-base">{idx + 1}</td>
                       <td className="p-3 md:p-4 font-semibold text-black/90 text-sm md:text-lg flex items-center gap-3">
-
                         <span className="truncate">{user.display_name}</span>
                       </td>
                       <td className="p-3 md:p-4 text-center font-bold text-gray-900 text-base md:text-lg drop-shadow-sm">{user.pts}</td>
@@ -161,17 +207,69 @@ const fetchRanking = supabase
             </div>
           </div>
 
+          {/* TOP 3 FECHA PASADA */}
+          {currentFaseNum !== null && currentFaseNum > 1 && (
+            <div className="pt-8">
+              <Podium 
+                users={topPast} 
+                title="Top 3 de la Fecha Pasada" 
+                fase={currentFaseNum - 1} 
+                delay="400ms" 
+              />
+            </div>
+          )}
+
         </div>
       </div>
     </div>
   )
 }
 
-function UserIcon() {
+// Componente del Podio para mostrar el Top 3 visualmente
+function Podium({ users, title, fase, delay }: { users: TopStanding[], title: string, fase: number, delay: string }) {
+  if (!users || users.length === 0 || users[0].pts === 0) {
+    return (
+      <div className="w-full mb-4 animate-fade-up flex flex-col items-center" style={{ animationDelay: delay }}>
+        <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-2">{title} (Fecha {fase})</h3>
+        <p className="text-gray-500 font-medium text-sm">Aún no hay puntos registrados para esta fecha.</p>
+      </div>
+    );
+  }
+
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full p-1.5">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  )
+    <div className="w-full mb-4 animate-fade-up flex flex-col items-center" style={{ animationDelay: delay }}>
+      <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-6">{title} (Fecha {fase})</h3>
+      
+      <div className="flex justify-center items-end gap-2 md:gap-4 h-48 md:h-56">
+        
+        {/* SEGUNDO PUESTO (Izquierda) */}
+        {users[1] ? (
+          <div className="flex flex-col items-center w-24 md:w-32">
+            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[1].display_name}</span>
+            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[1].pts} pts</span>
+            <div className="w-full bg-gradient-to-t from-gray-400 to-gray-300 h-24 md:h-32 rounded-t-xl flex justify-center pt-3 font-black text-2xl text-white shadow-inner">2</div>
+          </div>
+        ) : <div className="w-24 md:w-32"></div>}
+
+        {/* PRIMER PUESTO (Centro) */}
+        {users[0] && (
+          <div className="flex flex-col items-center w-24 md:w-32">
+            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[0].display_name}</span>
+            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[0].pts} pts</span>
+            <div className="w-full bg-gradient-to-t from-yellow-500 to-yellow-300 h-32 md:h-44 rounded-t-xl flex justify-center pt-3 font-black text-3xl text-white shadow-inner drop-shadow-lg z-10">1</div>
+          </div>
+        )}
+
+        {/* TERCER PUESTO (Derecha) */}
+        {users[2] ? (
+          <div className="flex flex-col items-center w-24 md:w-32">
+            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[2].display_name}</span>
+            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[2].pts} pts</span>
+            <div className="w-full bg-gradient-to-t from-orange-500 to-orange-300 h-20 md:h-24 rounded-t-xl flex justify-center pt-2 font-black text-xl text-white shadow-inner">3</div>
+          </div>
+        ) : <div className="w-24 md:w-32"></div>}
+
+      </div>
+    </div>
+  );
 }
