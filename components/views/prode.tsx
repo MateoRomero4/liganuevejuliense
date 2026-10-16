@@ -50,7 +50,8 @@ export default function ProdeView() {
 
         let currentFase = 1;
         if (activeFaseData && activeFaseData.length > 0) {
-          currentFase = activeFaseData[0].fase;
+          // Le decimos explícitamente a TypeScript que esto tiene una propiedad "fase"
+          currentFase = (activeFaseData as { fase: number }[])[0].fase;
         } else {
           // Si no hay pendientes, agarramos la última fase jugada
           const { data: lastFaseData } = await supabase
@@ -59,7 +60,8 @@ export default function ProdeView() {
             .order('fase', { ascending: false })
             .limit(1);
           if (lastFaseData && lastFaseData.length > 0) {
-            currentFase = lastFaseData[0].fase;
+             // Igual aquí
+            currentFase = (lastFaseData as { fase: number }[])[0].fase;
           }
         }
         
