@@ -39,29 +39,27 @@ export default function ProdeView() {
           .order('plenos', { ascending: false })
           .order('display_name', { ascending: true });
 
-        // 2. Determinar cuál es la fecha "Actual"
-        // Buscamos la fase más baja que aún tenga partidos pendientes
+        // 2. Determinar cuál es la fecha "Actual" basándonos en resultados (goles cargados)
+        // Buscamos la fase más alta que tenga al menos un resultado cargado
         const { data: activeFaseData } = await supabase
           .from('matches')
           .select('fase')
-          .eq('status', 'pending')
-          .order('fase', { ascending: true })
+          .not('home_goals', 'is', null) // Filtra partidos donde se hayan cargado goles
+          .order('fase', { ascending: false }) // Trae la fase más alta primero
           .limit(1);
 
         let currentFase = 1;
         if (activeFaseData && activeFaseData.length > 0) {
-          // Le decimos explícitamente a TypeScript que esto tiene una propiedad "fase"
           currentFase = (activeFaseData as { fase: number }[])[0].fase;
         } else {
-          // Si no hay pendientes, agarramos la última fase jugada
-          const { data: lastFaseData } = await supabase
+          // Si no hay NINGÚN resultado cargado en todo el torneo, por defecto mostramos la fase 1
+          const { data: firstFaseData } = await supabase
             .from('matches')
             .select('fase')
-            .order('fase', { ascending: false })
+            .order('fase', { ascending: true })
             .limit(1);
-          if (lastFaseData && lastFaseData.length > 0) {
-             // Igual aquí
-            currentFase = (lastFaseData as { fase: number }[])[0].fase;
+          if (firstFaseData && firstFaseData.length > 0) {
+            currentFase = (firstFaseData as { fase: number }[])[0].fase;
           }
         }
         
@@ -161,7 +159,7 @@ export default function ProdeView() {
           {currentFaseNum !== null && (
             <Podium 
               users={topCurrent} 
-              title="Top 3 de la Fecha Actual" 
+              title="Top 3 de la Fecha" 
               fase={currentFaseNum} 
               delay="150ms" 
             />
@@ -245,7 +243,7 @@ function Podium({ users, title, fase, delay }: { users: TopStanding[], title: st
       <div className="flex justify-center items-end gap-2 md:gap-4 h-48 md:h-56">
         
         {/* SEGUNDO PUESTO (Izquierda) */}
-        {users[1] ? (
+        {users[1] && users[1].pts > 0 ? (
           <div className="flex flex-col items-center w-24 md:w-32">
             <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[1].display_name}</span>
             <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[1].pts} pts</span>
@@ -254,24 +252,8 @@ function Podium({ users, title, fase, delay }: { users: TopStanding[], title: st
         ) : <div className="w-24 md:w-32"></div>}
 
         {/* PRIMER PUESTO (Centro) */}
-        {users[0] && (
+        {users[0] && users[0].pts > 0 && (
           <div className="flex flex-col items-center w-24 md:w-32">
             <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[0].display_name}</span>
             <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[0].pts} pts</span>
-            <div className="w-full bg-gradient-to-t from-yellow-500 to-yellow-300 h-32 md:h-44 rounded-t-xl flex justify-center pt-3 font-black text-3xl text-white shadow-inner drop-shadow-lg z-10">1</div>
-          </div>
-        )}
-
-        {/* TERCER PUESTO (Derecha) */}
-        {users[2] ? (
-          <div className="flex flex-col items-center w-24 md:w-32">
-            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[2].display_name}</span>
-            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[2].pts} pts</span>
-            <div className="w-full bg-gradient-to-t from-orange-500 to-orange-300 h-20 md:h-24 rounded-t-xl flex justify-center pt-2 font-black text-xl text-white shadow-inner">3</div>
-          </div>
-        ) : <div className="w-24 md:w-32"></div>}
-
-      </div>
-    </div>
-  );
-}
+            <div className="w-full bg-
