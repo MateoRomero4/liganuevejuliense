@@ -224,7 +224,6 @@ export default function ProdeView() {
     </div>
   )
 }
-
 // Componente del Podio para mostrar el Top 3 visualmente
 function Podium({ users, title, fase, delay }: { users: TopStanding[], title: string, fase: number, delay: string }) {
   if (!users || users.length === 0 || users[0].pts === 0) {
@@ -256,4 +255,20 @@ function Podium({ users, title, fase, delay }: { users: TopStanding[], title: st
           <div className="flex flex-col items-center w-24 md:w-32">
             <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[0].display_name}</span>
             <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[0].pts} pts</span>
-            <div className="w-full bg-
+            <div className="w-full bg-gradient-to-t from-yellow-500 to-yellow-300 h-32 md:h-44 rounded-t-xl flex justify-center pt-3 font-black text-3xl text-white shadow-inner drop-shadow-lg z-10">1</div>
+          </div>
+        )}
+
+        {/* TERCER PUESTO (Derecha) */}
+        {users[2] && users[2].pts > 0 ? (
+          <div className="flex flex-col items-center w-24 md:w-32">
+            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[2].display_name}</span>
+            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[2].pts} pts</span>
+            <div className="w-full bg-gradient-to-t from-orange-500 to-orange-300 h-20 md:h-24 rounded-t-xl flex justify-center pt-2 font-black text-xl text-white shadow-inner">3</div>
+          </div>
+        ) : <div className="w-24 md:w-32"></div>}
+
+      </div>
+    </div>
+  );
+}
