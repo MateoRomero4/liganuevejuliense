@@ -32,6 +32,16 @@ export type Database = {
           aciertos: number;
         };
       };
+      ranking_por_fase: {
+        Row: {
+          id: string;
+          display_name: string;
+          fase: number;
+          pts: number;
+          plenos: number;
+          aciertos: number;
+        };
+      };
     };
   };
 };
