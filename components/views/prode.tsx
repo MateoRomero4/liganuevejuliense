@@ -40,26 +40,31 @@ export default function ProdeView() {
           .order('display_name', { ascending: true });
 
         // 2. Determinar cuál es la fecha "Actual" basándonos en resultados (goles cargados)
-        // Buscamos la fase más alta que tenga al menos un resultado cargado
-        const { data: activeFaseData } = await supabase
+        const { data: activeFaseDataRaw } = await supabase
           .from('matches')
           .select('fase')
-          .not('home_goals', 'is', null) // Filtra partidos donde se hayan cargado goles
-          .order('fase', { ascending: false }) // Trae la fase más alta primero
+          .not('home_goals', 'is', null) 
+          .order('fase', { ascending: false }) 
           .limit(1);
+
+        // Le asignamos el tipo explícitamente antes de preguntar por su .length
+        const activeFaseData = activeFaseDataRaw as { fase: number }[] | null;
 
         let currentFase = 1;
         if (activeFaseData && activeFaseData.length > 0) {
-          currentFase = (activeFaseData as { fase: number }[])[0].fase;
+          currentFase = activeFaseData[0].fase;
         } else {
-          // Si no hay NINGÚN resultado cargado en todo el torneo, por defecto mostramos la fase 1
-          const { data: firstFaseData } = await supabase
+          // Si no hay NINGÚN resultado cargado, mostramos la fase 1
+          const { data: firstFaseDataRaw } = await supabase
             .from('matches')
             .select('fase')
             .order('fase', { ascending: true })
             .limit(1);
+            
+          const firstFaseData = firstFaseDataRaw as { fase: number }[] | null;
+          
           if (firstFaseData && firstFaseData.length > 0) {
-            currentFase = (firstFaseData as { fase: number }[])[0].fase;
+            currentFase = firstFaseData[0].fase;
           }
         }
         
