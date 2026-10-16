@@ -170,6 +170,19 @@ export default function ProdeView() {
             />
           )}
 
+                    {/* TOP 3 FECHA PASADA - Ahora con isCompact en true */}
+          {currentFaseNum !== null && currentFaseNum > 1 && (
+            <div className="pt-8">
+              <Podium 
+                users={topPast} 
+                title="Top 3 de la Fecha Pasada" 
+                fase={currentFaseNum - 1} 
+                delay="400ms"
+                isCompact={true}
+              />
+            </div>
+          )}
+
           {/* TABLA GLOBAL */}
           <div className="w-full">
             <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-4 text-center animate-fade-up" style={{ animationDelay: '180ms' }}>Ranking Global</h3>
@@ -212,18 +225,7 @@ export default function ProdeView() {
             </div>
           </div>
 
-          {/* TOP 3 FECHA PASADA - Ahora con isCompact en true */}
-          {currentFaseNum !== null && currentFaseNum > 1 && (
-            <div className="pt-8">
-              <Podium 
-                users={topPast} 
-                title="Top 3 de la Fecha Pasada" 
-                fase={currentFaseNum - 1} 
-                delay="400ms"
-                isCompact={true}
-              />
-            </div>
-          )}
+
 
         </div>
       </div>
@@ -268,9 +270,6 @@ function Podium({ users, title, fase, delay, isCompact = false }: { users: TopSt
                 >
                   <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-base'} text-center font-bold text-black/90 drop-shadow-sm`}>{idx + 1}</td>
                   <td className={`${isCompact ? 'p-2 text-xs md:text-sm' : 'p-3 md:p-4 text-sm md:text-lg'} font-semibold text-black/90 flex items-center gap-2 md:gap-3`}>
-                    {idx === 0 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥇</span>}
-                    {idx === 1 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥈</span>}
-                    {idx === 2 && <span className={`${isCompact ? 'text-base' : 'text-lg md:text-xl'} drop-shadow-sm`}>🥉</span>}
                     <span className="truncate">{user.display_name}</span>
                   </td>
                   <td className={`${isCompact ? 'p-2 text-sm md:text-base' : 'p-3 md:p-4 text-base md:text-lg'} text-center font-bold text-gray-900 drop-shadow-sm`}>{user.pts}</td>
