@@ -229,7 +229,8 @@ export default function ProdeView() {
     </div>
   )
 }
-// Componente del Podio para mostrar el Top 3 visualmente
+
+// Componente del Podio para mostrar el Top 3 visualmente en formato tabla
 function Podium({ users, title, fase, delay }: { users: TopStanding[], title: string, fase: number, delay: string }) {
   if (!users || users.length === 0 || users[0].pts === 0) {
     return (
@@ -241,38 +242,43 @@ function Podium({ users, title, fase, delay }: { users: TopStanding[], title: st
   }
 
   return (
-    <div className="w-full mb-4 animate-fade-up flex flex-col items-center" style={{ animationDelay: delay }}>
-      <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-6">{title} (Fecha {fase})</h3>
+    <div className="w-full mb-8 animate-fade-up" style={{ animationDelay: delay }}>
+      <h3 className="text-xl md:text-2xl font-bold text-[#1e1e1e] mb-4 text-center">{title} (Fecha {fase})</h3>
       
-      <div className="flex justify-center items-end gap-2 md:gap-4 h-48 md:h-56">
-        
-        {/* SEGUNDO PUESTO (Izquierda) */}
-        {users[1] && users[1].pts > 0 ? (
-          <div className="flex flex-col items-center w-24 md:w-32">
-            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[1].display_name}</span>
-            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[1].pts} pts</span>
-            <div className="w-full bg-gradient-to-t from-gray-400 to-gray-300 h-24 md:h-32 rounded-t-xl flex justify-center pt-3 font-black text-2xl text-white shadow-inner">2</div>
-          </div>
-        ) : <div className="w-24 md:w-32"></div>}
-
-        {/* PRIMER PUESTO (Centro) */}
-        {users[0] && users[0].pts > 0 && (
-          <div className="flex flex-col items-center w-24 md:w-32">
-            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[0].display_name}</span>
-            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[0].pts} pts</span>
-            <div className="w-full bg-gradient-to-t from-yellow-500 to-yellow-300 h-32 md:h-44 rounded-t-xl flex justify-center pt-3 font-black text-3xl text-white shadow-inner drop-shadow-lg z-10">1</div>
-          </div>
-        )}
-
-        {/* TERCER PUESTO (Derecha) */}
-        {users[2] && users[2].pts > 0 ? (
-          <div className="flex flex-col items-center w-24 md:w-32">
-            <span className="font-semibold text-sm md:text-base text-center truncate w-full px-1">{users[2].display_name}</span>
-            <span className="font-bold text-[#1e1e1e] text-sm md:text-lg mb-1">{users[2].pts} pts</span>
-            <div className="w-full bg-gradient-to-t from-orange-500 to-orange-300 h-20 md:h-24 rounded-t-xl flex justify-center pt-2 font-black text-xl text-white shadow-inner">3</div>
-          </div>
-        ) : <div className="w-24 md:w-32"></div>}
-
+      <div className="w-full border border-white overflow-hidden shadow-xs bg-white/40 backdrop-blur-sm">
+        <table className="w-full text-left border-collapse whitespace-nowrap">
+          <thead>
+            {/* Zócalo superior con degradé negro (de gris oscuro a negro) */}
+            <tr className="bg-gradient-to-l from-gray-800 to-black text-white text-[10px] md:text-xs uppercase tracking-wider font-bold">
+              <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">POS</th>
+              <th className="p-3 md:p-4 border-b border-white drop-shadow-sm">Participante</th>
+              <th className="p-3 md:p-4 text-center border-b border-white drop-shadow-sm">PTS</th>
+              <th className="p-3 md:p-4 text-center border-b border-white text-gray-300 drop-shadow-sm">PLENOS</th>
+              <th className="p-3 md:p-4 text-center border-b border-white text-gray-300 drop-shadow-sm">ACIERTOS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user, idx) => {
+              if (user.pts === 0) return null; // No mostrar a los que tengan 0 puntos
+              
+              return (
+                <tr 
+                  key={user.id} 
+                  className={`border-b border-white transition-all duration-700 ease-in-out ${idx % 2 !== 0 ? 'bg-gray-50/50' : 'bg-transparent'}`}
+                >
+                  <td className="p-3 md:p-4 text-center font-bold text-black/90 drop-shadow-sm text-sm md:text-base">{idx + 1}</td>
+                  <td className="p-3 md:p-4 font-semibold text-black/90 text-sm md:text-lg flex items-center gap-2 md:gap-3">
+                    {/* Agregamos las medallas para los 3 primeros */}
+                    <span className="truncate">{user.display_name}</span>
+                  </td>
+                  <td className="p-3 md:p-4 text-center font-bold text-gray-900 text-base md:text-lg drop-shadow-sm">{user.pts}</td>
+                  <td className="p-3 md:p-4 text-center text-black/90 font-medium text-sm md:text-base drop-shadow-sm">{user.plenos}</td>
+                  <td className="p-3 md:p-4 text-center text-black/90 font-medium text-sm md:text-base drop-shadow-sm">{user.aciertos}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
