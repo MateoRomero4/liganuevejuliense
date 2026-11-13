@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-export default function ResetPasswordView() {
+function ResetPasswordContent() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -22,7 +22,6 @@ export default function ResetPasswordView() {
 
     const checkSession = async () => {
       try {
-        // 1. Si por alguna razón llegó con ?code=... directo a esta página, lo intercambiamos
         const code = searchParams.get('code')
         if (code) {
           const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
@@ -33,7 +32,6 @@ export default function ResetPasswordView() {
           }
         }
 
-        // 2. Verificamos que exista una sesión activa (creada por /auth/callback o por el paso anterior)
         const { data: { session } } = await supabase.auth.getSession()
 
         if (!session) {
@@ -179,5 +177,19 @@ export default function ResetPasswordView() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function ResetPasswordView() {
+  return (
+    <Suspense
+      fallback={
+        <div className="relative w-full min-h-screen flex items-center justify-center p-4">
+          <div className="text-sm font-semibold text-[#1e1e1e]">Cargando...</div>
+        </div>
+      }
+    >
+      <ResetPasswordContent />
+    </Suspense>
   )
 }
